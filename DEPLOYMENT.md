@@ -32,7 +32,7 @@ An instance of Keycloak acts as the external authorization server and issues RS2
 The Curity Token Handler is deployed as a stateless API that issues cookies to the SPA.
 
 ```bash
-export DEPLOYMENT='external-client'
+export DEPLOYMENT='external'
 ./build.sh
 ./deploy.sh
 ```
@@ -43,12 +43,12 @@ Access components after deployment:
 - Keycloak admin UI: `http://login.example.com/admin/master/console/` using `admin / Password1`.
 - Keycloak metadata: `http://login.example.com/realms/example/.well-known/openid-configuration`.
 
-### Scenario 1: SPA uses the Curity Identity Server
+### Scenario 1: SPA uses the Curity Identity Server as the Authorization Server
 
 A single instance of the Curity Identity Server acts as both authorization server and token handler.
 
 ```bash
-export DEPLOYMENT='internal-client'
+export DEPLOYMENT='curity'
 ./build.sh
 ./deploy.sh
 ```

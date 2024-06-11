@@ -13,8 +13,8 @@ fi
 #
 # Validate input
 #
-if [ "$DEPLOYMENT" != 'internal-client' ] &&
-   [ "$DEPLOYMENT" != 'external-client' ]; then
+if [ "$DEPLOYMENT" != 'external' ] &&
+   [ "$DEPLOYMENT" != 'curity' ]; then
   echo 'The DEPLOYMENT environment variable has not been configured correctly'
   exit 1
 fi
