@@ -1,0 +1,71 @@
+services:
+
+  #
+  # The OAuth agent, API and authorization server are all hosted behind the API gateway
+  #
+  api-gateway:
+    image: apigateway:1.0.0
+    hostname: apigateway-internal
+    ports:
+      - 80:3001
+    volumes:
+      - ./apigateway/kong.yml:/usr/local/kong/declarative/kong.yml
+    environment:
+      KONG_DATABASE: 'off'
+      KONG_DECLARATIVE_CONFIG: '/usr/local/kong/declarative/kong.yml'
+      KONG_PROXY_LISTEN: '0.0.0.0:3001'
+      KONG_LOG_LEVEL: 'info'
+      KONG_PLUGINS: 'bundled,cors,oauth-proxy,phantom-token'
+      KONG_NGINX_HTTP_LUA_SHARED_DICT: 'phantom-token 10m'
+
+  #
+  # The web static content host
+  #
+  webhost:
+    image: webhost:1.0.0
+    hostname: webhost-internal
+    volumes:
+      - ./webhost/config.json:/usr/webhost/config.json
+      - ./spa/config.json:/usr/webhost/content/config.json
+    environment:
+      NODE_ENV: 'production'
+
+  #
+  # The SPA accesses its API via the API gateway at http://api.example.com/api
+  #
+  example-api:
+    image: example-api:1.0.0
+    hostname: api-internal
+    volumes:
+      - ./api/config.json:/usr/api/config.json
+
+  #
+  # The example uses a standalone instance as both authorization server and OAuth agent
+  #
+  curity-idsvr:
+    image: curity/idsvr-unstable:9.2.0-8ecc97cacb
+    hostname: login-internal
+    extra_hosts:
+      - login.example.com:host-gateway
+    ports:
+      - 6749:6749
+    volumes:
+      - ../../license.json:/opt/idsvr/etc/init/license/license.json
+      - ./idsvr/config-backup.xml:/opt/idsvr/etc/init/config.xml
+    environment:
+      ADMIN: 'true'
+      LOGGING_LEVEL: 'INFO'
+      IDSVR_BASE_URL: 'http://login.example.com'
+
+  #
+  # The SQL database used by the Curity Identity Server
+  #
+  curity-data:
+    image: postgres:16.3
+    hostname: dbserver
+    volumes:
+      - ./idsvr/data-backup.sql:/docker-entrypoint-initdb.d/data-backup.sql
+    environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'Password1'
+      POSTGRES_DB: 'idsvr'
