@@ -43,7 +43,7 @@ Access components after deployment:
 - Keycloak admin UI: `http://login.example.com/admin/master/console/` using `admin / Password1`.
 - Keycloak metadata: `http://login.example.com/realms/example/.well-known/openid-configuration`.
 
-### Scenario 1: SPA uses the Curity Identity Server as the Authorization Server
+### Scenario 2: SPA uses the Curity Identity Server as the Authorization Server
 
 A single instance of the Curity Identity Server acts as both authorization server and token handler.
 
