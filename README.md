@@ -37,11 +37,11 @@ export DEPLOYMENT='external-client'
 ./deploy.sh
 ```
 
-After deployment:
+Access components after deployment:
 
-- Access the admin UI for the Curity Token Handler at `https://localhost:6749` using `admin / Password1`.
-- Access the Keycloak admin UI at `http://login.example.com/admin/master/console/` using `admin / Password1`.
-- Access the Keycloak metadata at `http://login.example.com/realms/example/.well-known/openid-configuration`.
+- Curity Token Handler admin UI: `https://localhost:6749` using `admin / Password1`.
+- Keycloak admin UI: `http://login.example.com/admin/master/console/` using `admin / Password1`.
+- Keycloak metadata: `http://login.example.com/realms/example/.well-known/openid-configuration`.
 
 ### Scenario 1: SPA uses the Curity Identity Server
 
@@ -53,13 +53,14 @@ export DEPLOYMENT='internal-client'
 ./deploy.sh
 ```
 
-After deployment:
+Access components after deployment:
 
-- Access the admin UI for the Curity components at `https://localhost:6749` using `admin / Password1`.
+- Curity admin UI: `https://localhost:6749` using `admin / Password1`.
 
 ## Use the System
 
-Browse to the SPA at `http://www.product.example` and log in as the pre-shipped account `demouser` / `Password1`.\
+Browse to the SPA at `http://www.product.example`.\
+Log in as the pre-shipped account `demouser` / `Password1`.\
 Test all OAuth lifecycle operations against a backend for frontend at `http://bff.product.example`. 
 
 ## Clean Up
