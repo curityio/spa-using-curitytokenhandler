@@ -1,72 +1,48 @@
-# SPA using Curity Token Handler
+# SPA using the Curity Token Handler
 
-An example SPA showing the code and deployment to use to integrate with the Curity Token Handler.
+[![Quality](https://img.shields.io/badge/quality-test-yellow)](https://curity.io/resources/code-examples/status/)
+[![Availability](https://img.shields.io/badge/availability-source-blue)](https://curity.io/resources/code-examples/status/)
 
-## Meet Prerequisites
+A Single Page Application (SPA) that implements OpenID Connect using recommended browser security.\
+The SPA uses a `Backend for Frontend (BFF)` approach, in line with [best practices for browser based apps](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-browser-based-apps).
 
-First ensure that these components are installed:
+A modern evolution of Backend for Frontend is used, called the [Token Handler Pattern](https://curity.io/resources/learn/the-token-handler-pattern/).\
+The SPA uses an OAuth Agent to perform an API driven OpenID Connect flow:
 
-- Node.js 20+
-- Docker
-- jq
+![Logical Components](images/logical-components.png)
 
-Edit your `/etc/hosts` file and add these entries:
+## Architecture Benefits
 
-```bash
-127.0.0.1 www.product.example bff.product.example login.example.com
-```
+This provides the best separation of web and API concerns, to maintain all of the benefits of an SPA architecture:
 
-Download a [trial license](https://developer.curity.io/free-trial) from the developer portal for the tokenhandler application feature.\
-Copy the license file into the root folder of this project.
+- `Strongest Browser Security` developed by experts, with only SameSite=strict cookies in the browser
+- `Supported Solution`, with design guidance and professional services support
+- `Great User Experience` due to the separation of web and API concerns
+- `Productive Developer Experience` with only simple security code needed in the SPA
+- `Deploy Anywhere`, such as to a Content Delivery Network
 
-Download the [Kong OAuth Proxy](https://developer.curity.io/release/9.3.0/?proxy=kong) from the developer portal.\
-Copy the zip file into the root folder of this project.
+## Simple Code in Apps
 
-## Deploy the System
+This repository demonstrates the business focused components companies should need to develop:
 
-Two example deployments are provided, to explain the moving parts of the end-to-end solution.
+- A Single Page App coded in React
+- A Web Host to provide static content
+- An API that validates JWT access tokens
 
-### Scenario 1: SPA uses an External Authorization Server
+The token handler components should be developed by Curity or another provider, then plugged in.
 
-An instance of Keycloak acts as the external authorization server and issues RS256 JWTs.\
-The Curity Token Handler is deployed as a stateless API that issues cookies to the SPA.
+## Run the End-to-end Flow
 
-```bash
-export DEPLOYMENT='external-client'
-./build.sh
-./deploy.sh
-```
+The SPA can be quickly run in an end-to-end flow on a development computer by following these guides:
 
-Access components after deployment:
+- [Deployment Instructions](/DEPLOYMENT.md)
 
-- Curity Token Handler admin UI: `https://localhost:6749` using `admin / Password1`.
-- Keycloak admin UI: `http://login.example.com/admin/master/console/` using `admin / Password1`.
-- Keycloak metadata: `http://login.example.com/realms/example/.well-known/openid-configuration`.
+## Website Documentation
 
-### Scenario 1: SPA uses the Curity Identity Server
+See the [Curity Token Handler Product Page](https://curity.io/product/token-handler/) for detailed documentation on this solution.
 
-A single instance of the Curity Identity Server acts as both authorization server and token handler.
+## More Information
 
-```bash
-export DEPLOYMENT='internal-client'
-./build.sh
-./deploy.sh
-```
+Please visit [curity.io](https://curity.io/) for more information about the Curity Identity Server.
 
-Access components after deployment:
 
-- Curity admin UI: `https://localhost:6749` using `admin / Password1`.
-
-## Use the System
-
-Browse to the SPA at `http://www.product.example`.\
-Log in as the pre-shipped account `demouser` / `Password1`.\
-Test all OAuth lifecycle operations against a backend for frontend at `http://bff.product.example`. 
-
-## Clean Up
-
-When finished testing, teardown any local Docker-deployed components like this:
-
-```bash
-./teardown.sh
-```
