@@ -41,7 +41,7 @@
                   <scope>openid</scope>
                   <scope>profile</scope>
                   <authorization-endpoint>http://login.example.com/realms/example/protocol/openid-connect/auth</authorization-endpoint>
-                  <token-endpoint>http://login.example.com/realms/example/protocol/openid-connect/token</token-endpoint>
+                  <token-endpoint>http://login-internal:8080/realms/example/protocol/openid-connect/token</token-endpoint>
                   <logout>
                     <logout-endpoint>http://login.example.com/realms/example/protocol/openid-connect/logout</logout-endpoint>
                     <post-logout-redirect-uri>http://www.product.example/</post-logout-redirect-uri>
