@@ -1,12 +1,11 @@
-import {SessionResponse} from '@curity/token-handler-js-assistant';
+import {OAuthAgentClient, SessionResponse} from '@curity/token-handler-js-assistant';
 import {ApiClient} from '../../api/apiClient';
 import {Configuration} from '../../configuration';
-import {OAuthClient} from '../../oauth/oauthClient';
 
 export class AppViewModel {
 
     public configuration: Configuration | null;
-    public oauthClient: OAuthClient | null;
+    public oauthClient: OAuthAgentClient | null;
     public apiClient: ApiClient | null;
     public sessionResponse: SessionResponse | null;
     private isLoaded: boolean
@@ -28,7 +27,7 @@ export class AppViewModel {
 
             const configutationResponse = await fetch('config.json');
             this.configuration = await configutationResponse.json() as Configuration;
-            this.oauthClient = new OAuthClient(this.configuration);
+            this.oauthClient = new OAuthAgentClient({oauthAgentBaseUrl: `${this.configuration.bffBaseUrl}${this.configuration.oauthAgentPath}`});
             this.apiClient = new ApiClient(this.configuration, this.oauthClient);
             this.isLoaded = true;
         }
@@ -42,7 +41,7 @@ export class AppViewModel {
         try {
 
             // Get the authentication state or process a login response
-            this.sessionResponse =  await this.oauthClient!.handlePageLoad(location.href);
+            this.sessionResponse =  await this.oauthClient!.onPageLoad(location.href);
 
         } finally {
             

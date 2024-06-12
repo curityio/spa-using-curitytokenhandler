@@ -1,6 +1,6 @@
-import {OAuthClient} from '../../oauth/oauthClient';
+import {OAuthAgentClient} from '@curity/token-handler-js-assistant';
 
 export interface SignOutProps {
-    oauthClient: OAuthClient;
+    oauthClient: OAuthAgentClient;
     onLoggedOut: () => void;
 }

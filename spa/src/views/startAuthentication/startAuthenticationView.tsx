@@ -7,13 +7,21 @@ export function StartAuthenticationView(props: StartAuthenticationProps) {
     const [errorText, setErrorText] = useState('');
 
     /*
-     * Get the login URL, store state if needed, then redirect
+     * Get the login URL and perform a full window redirect
      */
     async function execute() {
 
         try {
 
-            location.href = await props.oauthClient.startLogin();
+            // If required, you can supply extra OpenID Connect parameters that are whitelisted in the OAuth Agent configuration settings
+            const whiteListedOptions = {
+                /*extraAuthorizationParameters: {
+                    ui_locales: 'sv'
+                }*/
+            };
+            
+            const response = await props.oauthClient.startLogin(whiteListedOptions);
+            location.href = response.authorizationUrl;
 
         } catch (e: any) {
 

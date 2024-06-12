@@ -1,4 +1,4 @@
-import {OAuthClient} from '../oauth/oauthClient';
+import {OAuthAgentClient} from '@curity/token-handler-js-assistant';
 import {Configuration} from '../configuration';
 import {ApiRemoteError} from '../utilities/apiRemoteError';
 import {SessionExpiredError} from '../utilities/sessionExpiredError';
@@ -9,9 +9,9 @@ import {SessionExpiredError} from '../utilities/sessionExpiredError';
 export class ApiClient {
 
     private readonly configuration: Configuration;
-    private readonly oauthClient: OAuthClient;
+    private readonly oauthClient: OAuthAgentClient;
 
-    public constructor(configuration: Configuration, oauthClient: OAuthClient) {
+    public constructor(configuration: Configuration, oauthClient: OAuthAgentClient) {
 
         this.configuration = configuration;
         this.oauthClient = oauthClient;
@@ -124,29 +124,24 @@ export class ApiClient {
 
         if (errorResponse.code) {
 
-            // Can be returned by the phantom token plugin
+            // Can be returned by API gateway plugins
             code = errorResponse.code;
 
         } else if (errorResponse.error_code) {
             
             // Can be returned by the OAuth agent
-            code = errorResponse.code;
+            code = errorResponse.error_code;
         }
 
         if (errorResponse.message) {
 
-            // Can be returned by the phantom token plugin or the OAuth proxy plugin
+            // Can be returned by API gateway plugins
             details = errorResponse.message;
 
         } else if (errorResponse.detailed_error) {
             
             // Can be returned by the OAuth agent
             details = errorResponse.detailed_error;
-        }
-
-        // Can be returned by the OAuth proxy plugin
-        if (errorResponse.request_id) {
-            details += `, ${errorResponse.request_id}`;
         }
 
         return new ApiRemoteError(response.status, code, details);
