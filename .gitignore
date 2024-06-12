@@ -3,3 +3,4 @@ license.json
 node_modules
 dist
 resources
+certs/example.ca.*
