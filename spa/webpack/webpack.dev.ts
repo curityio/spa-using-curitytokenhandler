@@ -11,13 +11,13 @@ const devConfig: webpack.Configuration = {
     static: {
         directory: path.join(dirname, './dist'),
     },
-    port: 80,
+    port: 3000,
     historyApiFallback: {
         index: 'index.html'
     },
     hot: true,
     allowedHosts: [
-        'www.product.example', 'login.example.com'
+        'www.product.example:3000', 'login.example.com'
     ],
   },
 };
