@@ -1,5 +1,1 @@
-[ server_ext ]
-basicConstraints = CA:FALSE
-keyUsage = nonRepudiation, digitalSignature, keyEncipherment
 subjectAltName=DNS:www.product.example,DNS:bff.product.example,DNS:login.example.com
-extendedKeyUsage = serverAuth
