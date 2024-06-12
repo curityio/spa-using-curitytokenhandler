@@ -17,7 +17,7 @@ const devConfig: webpack.Configuration = {
     },
     hot: true,
     allowedHosts: [
-        'www.product.example:3000', 'login.example.com'
+        'www.product.example', 'login.example.com'
     ],
   },
 };
