@@ -1,5 +1,5 @@
 {
-    "bffBaseUrl": "http://bff.product.example:3000",
+    "bffBaseUrl": "http://bff.product.example",
     "oauthAgentPath": "/oauthagent/example",
     "oauthUserinfoPath": "/oauthuserinfo",
     "apiPath": "/api"
