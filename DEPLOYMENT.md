@@ -1,6 +1,6 @@
 # SPA using Curity Token Handler
 
-An example SPA showing the code and deployment to use to integrate with the Curity Token Handler.
+An example SPA demonstrating the code and deployment to integrate with token handler components.
 
 ## Meet Prerequisites
 
@@ -28,8 +28,8 @@ Two example deployments are provided, to explain the moving parts of the end-to-
 
 ### Scenario 1: SPA uses an External Authorization Server
 
-An instance of Keycloak acts as the external authorization server and issues RS256 JWTs.\
-The Curity Token Handler is deployed as a stateless API that issues cookies to the SPA.
+An instance of Keycloak acts as the external authorization server that issues RS256 JWTs as access tokens.\
+The OAuth Agent is deployed as a stateless API that issues cookies to the SPA.
 
 ```bash
 export DEPLOYMENT='external'
@@ -45,7 +45,8 @@ Access components after deployment:
 
 ### Scenario 2: SPA uses the Curity Identity Server as the Authorization Server
 
-A single instance of the Curity Identity Server acts as both authorization server and token handler.
+The Curity Identity Server issues opaque access tokens.\
+A single instance of the Docker deployment acts as both authorization server and OAuth Agent.
 
 ```bash
 export DEPLOYMENT='curity'
@@ -61,7 +62,7 @@ Access components after deployment:
 
 Browse to the SPA at `http://www.product.example`.\
 Log in as the pre-shipped account `demouser` / `Password1`.\
-Test all OAuth lifecycle operations against a backend for frontend at `http://bff.product.example`. 
+Test all OAuth lifecycle operations against token handler components running at `http://bff.product.example`. 
 
 ## Clean Up
 
