@@ -1,0 +1,8 @@
+{
+    "port": 3001,
+    "jwksUri": "http://login-internal:8080/realms/example/protocol/openid-connect/certs",
+    "issuer": "http://login.example.com/realms/example",
+    "audience": "api.example.com",
+    "keystoreFilePath": "",
+    "keystorePassword": ""
+}

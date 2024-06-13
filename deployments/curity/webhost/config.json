@@ -1,0 +1,6 @@
+{
+    "port": 3001,
+    "bffBaseUrl": "http://bff.product.example",
+    "keystoreFilePath": "",
+    "keystorePassword": ""
+}
