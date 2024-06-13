@@ -17,6 +17,14 @@ if [ "$DEPLOYMENT" != 'external' ] &&
 fi
 
 #
+# Check that the Kong gateway plugin ZIP file is available
+#
+if [ ! -f curity-token-handler-proxy-kong*.zip ]; then
+  echo 'Please copy a Kong gateway plugin into the root folder before building'
+  exit 1
+fi
+
+#
 # Do a release build of the SPA
 #
 cd spa
@@ -81,19 +89,16 @@ fi
 cd ..
 
 #
-# Build the API gateway Docker image with plugins
+# Unpack the Kong OAuth Proxy Plugin and deploy them as a custom Docker image
 #
 cd "./deployments/$DEPLOYMENT/apigateway"
 rm -rf resources 2>/dev/null
-git clone git@bitbucket.org:curity/token-handler-oauth-proxy.git resources
+
+unzip ../../../curity-token-handler-proxy-kong*.zip -d ./resources
 if [ $? -ne 0 ]; then
-  echo 'Problem encountered downloading OAuth proxy files'
+  echo 'Problem encountered unzipping the Kong OAuth proxy files'
   exit 1
 fi
-
-cd resources
-git checkout main
-cd ..
 
 docker build -t apigateway:1.0.0 .
 if [ $? -ne 0 ]; then

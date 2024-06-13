@@ -20,7 +20,7 @@ Download a [Trial License](https://developer.curity.io/free-trial) with the toke
 Copy the license file into the root folder of this project.
 
 Download the [Kong OAuth Proxy](https://developer.curity.io/release/9.3.0/?proxy=kong) from the developer portal.\
-Copy the zip file into the root folder of this project.
+Copy the zip file, eg `curity-token-handler-proxy-kong-1.0.0.zip` into the root folder of this project.
 
 ## Deploy the System
 

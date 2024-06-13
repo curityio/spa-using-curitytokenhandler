@@ -4,3 +4,4 @@ node_modules
 dist
 resources
 certs/example.*
+curity-token-handler-proxy-kong*.zip
