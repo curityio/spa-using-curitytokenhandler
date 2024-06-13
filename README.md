@@ -23,13 +23,13 @@ This provides the best separation of web and API concerns, to maintain all of th
 
 ## Simple Code in Apps
 
-This repository demonstrates the business focused components companies should need to develop:
+This repository demonstrates the business focused components you should need to develop:
 
 - A Single Page App coded in React
 - A Web Host to provide static content
 - An API that validates JWT access tokens
 
-The token handler components should be developed by Curity or another provider, then plugged in.
+It also provides an example deployment so that you can understand the moving parts.
 
 ## Run the End-to-end Flow
 
@@ -39,7 +39,12 @@ The SPA can be quickly run in an end-to-end flow on a development computer by fo
 
 ## Website Documentation
 
-See the [Curity Token Handler Product Page](https://curity.io/product/token-handler/) for detailed documentation on this solution.
+See the following resources for further information and tutorials:
+
+- [Curity Token Handler Product](https://curity.io/product/token-handler/)
+- [Create a Token Handler](https://curity.io/resources/learn/curity-token-handler/)
+- [SPA Code Example](https://curity.io/resources/learn/token-handler-spa-example/)
+- [Deployment Tutorial](https://curity.io/resources/learn/token-handler-deployment-example/)
 
 ## More Information
 
