@@ -1,6 +1,6 @@
 # SPA using the Curity Token Handler
 
-[![Quality](https://img.shields.io/badge/quality-test-yellow)](https://curity.io/resources/code-examples/status/)
+[![Quality](https://img.shields.io/badge/quality-production-green)](https://curity.io/resources/code-examples/status/)
 [![Availability](https://img.shields.io/badge/availability-source-blue)](https://curity.io/resources/code-examples/status/)
 
 A Single Page Application (SPA) that implements OpenID Connect using recommended browser security.\
