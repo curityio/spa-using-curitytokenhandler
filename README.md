@@ -33,7 +33,7 @@ The token handler components should be developed by Curity or another provider, 
 
 ## Run the End-to-end Flow
 
-The SPA can be quickly run in an end-to-end flow on a development computer by following these guides:
+The SPA can be quickly run in an end-to-end flow on a development computer by following this guide:
 
 - [Deployment Instructions](/DEPLOYMENT.md)
 
