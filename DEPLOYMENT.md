@@ -22,6 +22,12 @@ Copy the license file into the root folder of this project.
 Download the [Kong OAuth Proxy](https://developer.curity.io/release/9.3.0/?proxy=kong) from the developer portal.\
 Copy the zip file, eg `curity-token-handler-proxy-kong-1.0.0.zip` into the root folder of this project.
 
+Also, ensire that your computer's Curity Docker image is up to date:
+
+```bash
+docker pull curity.azurecr.io/curity/idsvr
+```
+
 ## Deploy the System
 
 Two example deployments are provided, to explain the moving parts of the end-to-end solution.
