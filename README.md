@@ -41,7 +41,7 @@ The SPA can be quickly run in an end-to-end flow on a development computer by fo
 
 See the following resources for further information and tutorials:
 
-- [Curity Token Handler Product](https://curity.io/product/token-handler/)
+- [Token Handler Product](https://curity.io/product/token-handler/)
 - [Create a Token Handler](https://curity.io/resources/learn/curity-token-handler/)
 - [SPA Code Example](https://curity.io/resources/learn/token-handler-spa-example/)
 - [Deployment Tutorial](https://curity.io/resources/learn/token-handler-deployment-example/)
