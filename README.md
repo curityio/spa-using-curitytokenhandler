@@ -3,19 +3,18 @@
 [![Quality](https://img.shields.io/badge/quality-production-green)](https://curity.io/resources/code-examples/status/)
 [![Availability](https://img.shields.io/badge/availability-binary-blue)](https://curity.io/resources/code-examples/status/)
 
-A Single Page Application (SPA) that implements OpenID Connect using recommended browser security.\
-The SPA uses a `Backend for Frontend (BFF)` approach, in line with [best practices for browser based apps](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-browser-based-apps).
-
-A modern evolution of Backend for Frontend is used, called the [Token Handler Pattern](https://curity.io/resources/learn/the-token-handler-pattern/).\
+A Single Page Application (SPA) client that uses the production supported backend components.\
 The SPA uses an OAuth Agent to perform an API driven OpenID Connect flow:
 
 ![Logical Components](images/logical-components.png)
+
+The SPA then calls APIs with `HTTP-only SameSite=strict` cookies, in line with [best practices for browser based apps](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-browser-based-apps).
 
 ## Architecture Benefits
 
 This provides the best separation of web and API concerns, to maintain all of the benefits of an SPA architecture:
 
-- `Strongest Browser Security` developed by experts, with only SameSite=strict cookies in the browser
+- `Strongest Browser Security` developed by experts
 - `Supported Solution`, with design guidance and professional services support
 - `Great User Experience` due to the separation of web and API concerns
 - `Productive Developer Experience` with only simple security code needed in the SPA
