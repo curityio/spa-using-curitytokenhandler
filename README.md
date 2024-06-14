@@ -8,7 +8,7 @@ The SPA uses an OAuth Agent to perform an API driven OpenID Connect flow:
 
 ![Logical Components](images/logical-components.png)
 
-The SPA then calls APIs with `HTTP-only SameSite=strict` cookies, in line with [best practices for browser based apps](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-browser-based-apps).
+The SPA uses [best practices for browser based apps](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-browser-based-apps) to call APIs with `HTTP-only SameSite=strict` cookies.
 
 ## Architecture Benefits
 
