@@ -19,7 +19,7 @@ This provides the best separation of web and API concerns, to maintain all of th
 - `Supported Solution`, with design guidance and professional services support
 - `Great User Experience` due to the separation of web and API concerns
 - `Productive Developer Experience` with only simple security code needed in the SPA
-- `Deploy Anywhere`, such as to a Content Delivery Network
+- `Deploy Anywhere`, such as to a content delivery network
 
 ## Simple Code in Apps
 
