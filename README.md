@@ -3,7 +3,7 @@
 [![Quality](https://img.shields.io/badge/quality-production-green)](https://curity.io/resources/code-examples/status/)
 [![Availability](https://img.shields.io/badge/availability-binary-blue)](https://curity.io/resources/code-examples/status/)
 
-A Single Page Application (SPA) client that uses the production supported backend components.\
+An example Single Page Application (SPA) client that uses the production supported backend components.\
 The SPA uses an OAuth Agent to perform an API driven OpenID Connect flow:
 
 ![Logical Components](images/logical-components.png)
