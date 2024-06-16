@@ -1,4 +1,4 @@
-# SPA using Curity's Token Handler Implementation
+# SPA using the Token Handler from Curity
 
 [![Quality](https://img.shields.io/badge/quality-production-green)](https://curity.io/resources/code-examples/status/)
 [![Availability](https://img.shields.io/badge/availability-binary-blue)](https://curity.io/resources/code-examples/status/)
