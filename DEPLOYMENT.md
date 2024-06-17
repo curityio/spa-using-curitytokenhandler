@@ -20,7 +20,7 @@ Download a [Trial License](https://developer.curity.io/free-trial) from the deve
 Rename it to `license.json` and copy it into the root folder of this project.
 
 Download the [Kong OAuth Proxy](https://developer.curity.io/releases/token-handler?proxy=kong) from the developer portal.\
-Copy the zip file, eg `token-handler-proxy-kong-[version].zip` into the root folder of this project.
+Copy the zip file, eg `token-handler-proxy-kong-[version].zip`, into the root folder of this project.
 
 Also, ensire that your computer's Curity Docker image is up to date:
 
