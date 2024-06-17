@@ -43,7 +43,7 @@ services:
   # The example uses a standalone instance as both authorization server and OAuth agent
   #
   curity-idsvr:
-    image: curity/idsvr-unstable:9.2.0-d6e393af32
+    image: curity.azurecr.io/curity/idsvr:latest
     hostname: login-internal
     extra_hosts:
       - login.example.com:host-gateway

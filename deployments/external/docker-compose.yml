@@ -21,7 +21,7 @@ services:
   # The OAuth Agent is the backend for frontend component for the SPA
   #
   oauth-agent:
-    image: curity/idsvr-unstable:9.2.0-d6e393af32
+    image: curity.azurecr.io/curity/idsvr:latest
     hostname: bff-internal
     extra_hosts:
       - login.example.com:host-gateway
