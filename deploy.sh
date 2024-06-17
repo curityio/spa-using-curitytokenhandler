@@ -5,7 +5,7 @@ cd "$(dirname "${BASH_SOURCE[0]}")"
 #
 # Check that a valid license is available
 #
-./license-check.sh
+./validate.sh
 if [ $? -ne 0 ]; then
   exit 1
 fi
