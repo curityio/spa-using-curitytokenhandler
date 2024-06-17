@@ -16,7 +16,7 @@ Edit your `/etc/hosts` file and add these entries:
 127.0.0.1 www.product.example bff.product.example login.example.com
 ```
 
-Download a [Trial License](https://developer.curity.io/free-trial) with the tokenhandler application feature from the developer portal.\
+Download a [Trial License](https://developer.curity.io/free-trial) from the developer portal with access to the applications feature .\
 Copy the license file into the root folder of this project.
 
 Download the [Kong OAuth Proxy](https://developer.curity.io/releases/token-handler?proxy=kong) from the developer portal.\
