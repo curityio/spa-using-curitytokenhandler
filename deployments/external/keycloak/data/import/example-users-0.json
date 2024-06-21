@@ -1,0 +1,27 @@
+{
+  "realm" : "example",
+  "users" : [ {
+    "id" : "24337354-76d5-4bac-ad84-9d40a29cfa3b",
+    "username" : "demouser",
+    "firstName" : "Demo",
+    "lastName" : "User",
+    "email" : "demo.user@curity.io",
+    "emailVerified" : true,
+    "createdTimestamp" : 1667491057353,
+    "enabled" : true,
+    "totp" : false,
+    "credentials" : [ {
+      "id" : "2856d8da-792b-4668-834e-4a35f9602ca3",
+      "type" : "password",
+      "userLabel" : "My password",
+      "createdDate" : 1667491153085,
+      "secretData" : "{\"value\":\"OPkBq0Krvj/QSnZZg10IFcr2nbc/tQ+l9D3o3CxSxNB4zgyNBgo4pPXZ88hmqqE2cJqF1JUkC9n35zcpaD2Yiw==\",\"salt\":\"ksFKPcEhYxUPGkxs3THZ0Q==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":210000,\"algorithm\":\"pbkdf2-sha512\",\"additionalParameters\":{}}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "default-roles-example", "example" ],
+    "notBefore" : 0,
+    "groups" : [ ]
+  } ]
+}

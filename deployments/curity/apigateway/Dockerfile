@@ -1,4 +1,4 @@
-FROM kong/kong:latest-ubuntu
+FROM kong:latest
 
 USER root
 RUN apt-get update
