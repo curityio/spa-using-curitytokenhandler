@@ -59,26 +59,28 @@ services:
   # Keycloak is used as the external authorization server
   #
   keycloak:
-    image: quay.io/keycloak/keycloak:latest
+    image: quay.io/keycloak/keycloak:25.0.1
     hostname: login-internal
     ports:
     - 8080:8080
     environment:
-      KC_HOSTNAME_URL: 'http://login.example.com'
-      KC_HOSTNAME_ADMIN_URL: 'http://login.example.com'
-      KC_HOSTNAME_STRICT_HTTPS: 'false'
+      KC_HOSTNAME: 'http://login.example.com'
+      KC_HOSTNAME_STRICT: 'false'
       KC_HTTP_ENABLED: 'true'
       KC_HTTPS_ENABLED: 'false'
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: Password1
-      KEYCLOAK_LOGLEVEL: DEBUG
+      KC_LOG_LEVEL: DEBUG
       KC_DB: postgres
       KC_DB_URL_HOST: keycloak-dbserver
       KC_DB_URL_DATABASE: keycloak
       KC_DB_USERNAME: postgres
       KC_DB_PASSWORD: Password1
+    volumes:
+      - ./keycloak/data/import/:/opt/keycloak/data/import
     command:
-    - start-dev
+      - start-dev
+      - --import-realm
     depends_on:
       keycloakdata:
         condition: service_healthy
@@ -89,8 +91,6 @@ services:
   keycloakdata:
     image: postgres:16.3
     hostname: keycloak-dbserver
-    volumes:
-    - ./keycloak/data-backup.sql:/docker-entrypoint-initdb.d/data-backup.sql
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: Password1
