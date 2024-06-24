@@ -1,7 +1,5 @@
 FROM node:20-bookworm-slim
 
-ARG spa_folder
-
 RUN groupadd --gid 10000 webuser \
   && useradd --uid 10001 --gid webuser --shell /bin/bash --create-home webuser
 
