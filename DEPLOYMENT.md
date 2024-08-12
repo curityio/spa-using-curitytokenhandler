@@ -4,7 +4,7 @@ An example SPA demonstrating the code and deployment to integrate with token han
 
 ## Meet Prerequisites
 
-The example deployment requires the following components, though you could also adapt it to your particular needs:
+The example deployment requires the following components:
 
 - Node.js 20+
 - Docker
@@ -23,8 +23,8 @@ Rename it to `license.json` and copy it into the root folder of this project.
 
 Us the [Curity developer portal](https://developer.curity.io/releases/token-handler) to download one of the OAuth Proxy zip files to the root folder of this project:
 
-- [Kong OAuth Proxy](https://developer.curity.io/releases/token-handler?proxy=kong)
-- [OpenResty OAuth Proxy](https://developer.curity.io/releases/token-handler?proxy=openresty)
+- [Kong OAuth Proxy 2.0+](https://developer.curity.io/releases/token-handler?proxy=kong)
+- [OpenResty OAuth Proxy 2.0+](https://developer.curity.io/releases/token-handler?proxy=openresty)
 
 Also, ensure that your computer's Curity Docker image is up to date (9.4.0 or later):
 
