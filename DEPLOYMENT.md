@@ -21,15 +21,10 @@ Edit your `/etc/hosts` file and add these entries:
 Download a [Trial License](https://developer.curity.io/free-trial) from the developer portal with access to the applications / token handler feature.\
 Rename it to `license.json` and copy it into the root folder of this project.
 
-Download one of the OAuth Proxy from the developer portal:
+Us the [Curity developer portal](https://developer.curity.io/releases/token-handler) to download one of the OAuth Proxy zip files to the root folder of this project:
 
 - [Kong OAuth Proxy](https://developer.curity.io/releases/token-handler?proxy=kong)
 - [OpenResty OAuth Proxy](https://developer.curity.io/releases/token-handler?proxy=openresty)
-
-Copy the zip file, into the root folder of this project:
-
-- token-handler-proxy-kong-2.0.zip
-- token-handler-proxy-openresty-1.0.zip
 
 Also, ensure that your computer's Curity Docker image is up to date (9.4.0 or later):
 
