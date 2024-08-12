@@ -10,9 +10,13 @@ cp ./hooks/pre-commit .git/hooks
 #
 # Validate input
 #
-if [ "$DEPLOYMENT" != 'external' ] &&
-   [ "$DEPLOYMENT" != 'curity' ]; then
+if [ "$DEPLOYMENT" != 'external' ] && [ "$DEPLOYMENT" != 'curity' ]; then
   echo 'The DEPLOYMENT environment variable has not been configured correctly'
+  exit 1
+fi
+
+if [ "$OAUTH_PROXY_TYPE" != 'kong' ] && [ "$OAUTH_PROXY_TYPE" != 'openresty' ]; then
+  echo 'The OAUTH_PROXY_TYPE environment variable has not been configured correctly'
   exit 1
 fi
 
@@ -20,7 +24,7 @@ fi
 # Check that the Kong gateway plugin ZIP file is available
 #
 if [ ! -f token-handler-proxy*.zip ]; then
-  echo 'Please copy a Kong gateway plugin into the root folder before building'
+  echo 'Please download a gateway plugin to the root folder before building'
   exit 1
 fi
 
@@ -89,18 +93,22 @@ fi
 cd ..
 
 #
-# Unpack the Kong OAuth Proxy Plugin and deploy them as a custom Docker image
+# Unpack the Kong OAuth Proxy Plugin and deploy it in a custom API gateway Docker image
 #
 cd "./deployments/$DEPLOYMENT/apigateway"
 rm -rf resources 2>/dev/null
 
 unzip ../../../token-handler-proxy*.zip -d ./resources
 if [ $? -ne 0 ]; then
-  echo 'Problem encountered unzipping the Kong OAuth proxy files'
+  echo 'Problem encountered unzipping the OAuth proxy files'
   exit 1
 fi
 
-docker build -t apigateway:1.0.0 .
+if [ "$OAUTH_PROXY_TYPE" == 'openresty' ]; then
+  docker build -f openresty/Dockerfile -t apigateway-openresty:1.0.0 .
+else
+  docker build -f kong/Dockerfile -t apigateway-kong:1.0.0 .
+fi
 if [ $? -ne 0 ]; then
   echo "Problem encountered building the API gateway Docker image"
   exit 1

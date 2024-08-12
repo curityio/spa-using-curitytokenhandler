@@ -1,4 +1,4 @@
-FROM kong:latest
+FROM kong/kong:3.7-ubuntu
 
 USER root
 RUN apt-get update

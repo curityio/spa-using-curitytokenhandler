@@ -1,15 +1,16 @@
 services:
 
   #
-  # The OAuth agent, API and authorization server are all hosted behind the API gateway
+  # The SPA calls all backend components via the API gateway
+  # When using Kong, the SPA routes are defined in the kong.yml file
   #
-  api-gateway:
-    image: apigateway:1.0.0
+  api-gateway-kong:
+    image: apigateway-kong:1.0.0
     hostname: apigateway-internal
     ports:
       - 80:3001
     volumes:
-      - ./apigateway/kong.yml:/usr/local/kong/declarative/kong.yml
+      - ./apigateway/kong/kong.yml:/usr/local/kong/declarative/kong.yml
     environment:
       KONG_DATABASE: 'off'
       KONG_DECLARATIVE_CONFIG: '/usr/local/kong/declarative/kong.yml'
@@ -17,6 +18,23 @@ services:
       KONG_LOG_LEVEL: 'info'
       KONG_PLUGINS: 'bundled,cors,oauth-proxy,phantom-token'
       KONG_NGINX_HTTP_LUA_SHARED_DICT: 'phantom-token 10m'
+    profiles:
+      - kong
+
+  #
+  # The SPA calls all backend components via the API gateway
+  # When using OpenResty, the SPA routes are defined in the default.conf file
+  #
+  api-gateway-openresty:
+    image: apigateway-openresty:1.0.0
+    hostname: apigateway-internal
+    ports:
+      - 80:3001
+    volumes:
+      - ./apigateway/openresty/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf
+      - ./apigateway/openresty/default.conf:/etc/nginx/conf.d/default.conf
+    profiles:
+      - openresty
 
   #
   # The web static content host
@@ -56,6 +74,7 @@ services:
       ADMIN: 'true'
       LOGGING_LEVEL: 'INFO'
       IDSVR_BASE_URL: 'http://login.example.com'
+      OAUTH_PROXY_TYPE: "${OAUTH_PROXY_TYPE}"
 
   #
   # The SQL database used by the Curity Identity Server

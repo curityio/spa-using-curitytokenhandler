@@ -71,14 +71,14 @@ export class ApiClient {
                     throw e3;
                 }
 
-                // Session expiry condition 2: a 401 which might mean cookies in the browser are no longer valid
+                // Session expiry condition 2: a 401 can mean cookies in the browser use an old encryption key
                 throw new SessionExpiredError();
             }
         }
     }
 
     /*
-     * Send a request with a secure cookie - a custom header triggers preflight OPTIONS requests
+     * Send a request with a secure cookie - a custom header ensures preflight OPTIONS requests
      */
     private async fetchImpl(method: string, path: string): Promise<any> {
 
@@ -87,6 +87,7 @@ export class ApiClient {
             credentials: 'include',
             headers: {
                 accept: 'application/json',
+                'token-handler-version': '1',
             },
             method: method,
             mode: 'cors',

@@ -19,10 +19,17 @@ Edit your `/etc/hosts` file and add these entries:
 Download a [Trial License](https://developer.curity.io/free-trial) from the developer portal with access to the applications / token handler feature.\
 Rename it to `license.json` and copy it into the root folder of this project.
 
-Download the [Kong OAuth Proxy](https://developer.curity.io/releases/token-handler?proxy=kong) from the developer portal.\
-Copy the zip file, eg `token-handler-proxy-kong-[version].zip`, into the root folder of this project.
+Download one of the OAuth Proxy from the developer portal:
 
-Also, ensure that your computer's Curity Docker image is up to date:
+- [Kong OAuth Proxy](https://developer.curity.io/releases/token-handler?proxy=kong)
+- [OpenResty OAuth Proxy](https://developer.curity.io/releases/token-handler?proxy=openresty)
+
+Copy the zip file, into the root folder of this project:
+
+- token-handler-proxy-kong-2.0.zip
+- token-handler-proxy-openresty-1.0.zip
+
+Also, ensure that your computer's Curity Docker image is up to date (9.4.0 or later):
 
 ```bash
 docker pull curity.azurecr.io/curity/idsvr
@@ -35,10 +42,12 @@ Two example deployments are provided, to explain the moving parts of the end-to-
 ### Scenario 1: SPA uses an External Authorization Server
 
 An instance of Keycloak acts as the external authorization server that issues RS256 JWTs as access tokens.\
-The OAuth Agent is deployed as a stateless API that issues cookies to the SPA.
+The OAuth Agent is deployed as a stateless API that issues cookies to the SPA.\
+Choose an OAuth proxy type of either `kong` or `openresty`:
 
 ```bash
 export DEPLOYMENT='external'
+export OAUTH_PROXY_TYPE='kong'
 ./build.sh
 ./deploy.sh
 ```
@@ -52,10 +61,12 @@ Access components after deployment:
 ### Scenario 2: SPA uses the Curity Identity Server as the Authorization Server
 
 The Curity Identity Server issues opaque access tokens.\
-A single instance of the Docker deployment acts as both authorization server and OAuth Agent.
+A single instance of the Docker deployment acts as both authorization server and OAuth Agent.\
+Choose an OAuth proxy type of either `kong` or `openresty`:
 
 ```bash
 export DEPLOYMENT='curity'
+export OAUTH_PROXY_TYPE='kong'
 ./build.sh
 ./deploy.sh
 ```

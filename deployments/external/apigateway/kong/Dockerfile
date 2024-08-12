@@ -1,4 +1,4 @@
-FROM kong:latest
+FROM kong/kong:3.7-ubuntu
 
 # Copy in the OAuth proxy plugin files
 COPY resources/plugin/handler.lua \

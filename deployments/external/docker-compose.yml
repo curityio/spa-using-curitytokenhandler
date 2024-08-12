@@ -1,21 +1,39 @@
 services:
 
   #
-  # The OAuth agent and API are hosted behind the API gateway
+  # The SPA calls all backend components via the API gateway
+  # When using Kong, the SPA routes are defined in the kong.yml file
   #
-  api-gateway:
-    image: apigateway:1.0.0
+  api-gateway-kong:
+    image: apigateway-kong:1.0.0
     hostname: apigateway-internal
     ports:
       - 80:3001
     volumes:
-      - ./apigateway/kong.yml:/usr/local/kong/declarative/kong.yml
+      - ./apigateway/kong/kong.yml:/usr/local/kong/declarative/kong.yml
     environment:
       KONG_DATABASE: 'off'
       KONG_DECLARATIVE_CONFIG: '/usr/local/kong/declarative/kong.yml'
       KONG_PROXY_LISTEN: '0.0.0.0:3001'
       KONG_LOG_LEVEL: 'info'
       KONG_PLUGINS: 'bundled,cors,oauth-proxy'
+    profiles:
+      - kong
+
+  #
+  # The SPA calls all backend components via the API gateway
+  # When using OpenResty, the SPA routes are defined in the default.conf file
+  #
+  api-gateway-openresty:
+    image: apigateway-openresty:1.0.0
+    hostname: apigateway-internal
+    ports:
+      - 80:3001
+    volumes:
+      - ./apigateway/openresty/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf
+      - ./apigateway/openresty/default.conf:/etc/nginx/conf.d/default.conf
+    profiles:
+      - openresty
 
   #
   # The OAuth Agent is the backend for frontend component for the SPA
@@ -33,6 +51,7 @@ services:
     environment:
       ADMIN: 'true'
       LOGGING_LEVEL: 'INFO'
+      OAUTH_PROXY_TYPE: "${OAUTH_PROXY_TYPE}"
 
   #
   # The web static content host
