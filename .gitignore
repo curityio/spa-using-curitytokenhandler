@@ -6,4 +6,5 @@ resources
 certs/example.*
 token-handler-proxy*.zip
 cookie-encryption
+kong.yml
 default.conf
