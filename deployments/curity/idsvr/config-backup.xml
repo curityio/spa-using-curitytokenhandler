@@ -13,7 +13,7 @@
       <services>
         <zones>
           <default-zone>
-            <symmetric-key>12d8a66e397fde5b748a971451ab4d2a6f8204589efa9c4b44d07faa4ed705f7</symmetric-key>
+            <symmetric-key>#{SYMMETRIC_KEY}</symmetric-key>
           </default-zone>
         </zones>
         <service-role>

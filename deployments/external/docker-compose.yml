@@ -52,6 +52,7 @@ services:
       ADMIN: 'true'
       LOGGING_LEVEL: 'INFO'
       OAUTH_PROXY_TYPE: "${OAUTH_PROXY_TYPE}"
+      SYMMETRIC_KEY: "${SYMMETRIC_KEY}"
       TH_COOKIE_CERT: "${TH_COOKIE_CERT}"
 
   #

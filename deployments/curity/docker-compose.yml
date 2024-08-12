@@ -75,6 +75,7 @@ services:
       LOGGING_LEVEL: 'INFO'
       IDSVR_BASE_URL: 'http://login.example.com'
       OAUTH_PROXY_TYPE: "${OAUTH_PROXY_TYPE}"
+      SYMMETRIC_KEY: "${SYMMETRIC_KEY}"
       TH_COOKIE_CERT: "${TH_COOKIE_CERT}"
 
   #
