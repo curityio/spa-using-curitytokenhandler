@@ -23,7 +23,7 @@ fi
 #
 # Check that the Kong gateway plugin ZIP file is available
 #
-if [ ! -f token-handler-proxy*.zip ]; then
+if [ ! -f token-handler-proxy-$OAUTH_PROXY_TYPE*.zip ]; then
   echo 'Please download a gateway plugin to the root folder before building'
   exit 1
 fi
@@ -98,7 +98,7 @@ cd ..
 cd "./deployments/$DEPLOYMENT/apigateway"
 rm -rf resources 2>/dev/null
 
-unzip ../../../token-handler-proxy*.zip -d ./resources
+unzip ../../../token-handler-proxy-$OAUTH_PROXY_TYPE*.zip -d ./resources
 if [ $? -ne 0 ]; then
   echo 'Problem encountered unzipping the OAuth proxy files'
   exit 1

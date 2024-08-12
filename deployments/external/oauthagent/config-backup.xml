@@ -53,7 +53,7 @@
                   <id>oauth-agent-example-publickey</id>
                 </proxy-keystore>
                 <cookie-prefix>th-</cookie-prefix>
-                <!--require-custom-header>true</require-custom-header-->
+                <require-custom-header>true</require-custom-header>
                 <proxy-type>#{OAUTH_PROXY_TYPE}</proxy-type>
               </token-handler>
             </application>

@@ -396,7 +396,7 @@
                 <proxy-keystore>
                   <id>oauth-agent-example-publickey</id>
                 </proxy-keystore>
-                <!--require-custom-header>true</require-custom-header-->
+                <require-custom-header>true</require-custom-header>
                 <proxy-type>#{OAUTH_PROXY_TYPE}</proxy-type>
                 <cookie-prefix>th-</cookie-prefix>
               </token-handler>
