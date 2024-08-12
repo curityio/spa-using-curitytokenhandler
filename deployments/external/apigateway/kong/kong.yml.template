@@ -59,16 +59,8 @@ services:
       max_age: 86400
   - name: oauth-proxy
     config:
-      cookie_key: |-
-        -----BEGIN ENCRYPTED PRIVATE KEY-----
-        MIH0MF8GCSqGSIb3DQEFDTBSMDEGCSqGSIb3DQEFDDAkBBA9BLL4kbxiN4dOlIZE
-        nxxsAgIIADAMBggqhkiG9w0CCQUAMB0GCWCGSAFlAwQBKgQQ72a5HguvLkDUto5Q
-        gLjuygSBkCOR6pSeXPp1ym5f+oPwYzT99EXbyxELUI43r01IcfY1i8Ib+rPbHB0K
-        abRjKb/MnJXaRVS3iaQDYmTLK4SF6YcA3wRJtUZWTeCr79PbzkAootHyRjrYT6jN
-        hOm/DLJHiRtNFyRTX+E9r9uMnYACmv6o0lsWScb0NrwPlyW3Ft14ayibtRvCnpEa
-        CB3FgLlR9w==
-        -----END ENCRYPTED PRIVATE KEY-----
-      cookie_key_pass: default
+      cookie_key: "$TH_COOKIE_KEY"
+      cookie_key_pass: $TH_COOKIE_KEY_PASS
 
 #
 # The SPA gets OAuth user info using this hostname and path
@@ -90,13 +82,5 @@ services:
       max_age: 86400
   - name: oauth-proxy
     config:
-      cookie_key: |-
-        -----BEGIN ENCRYPTED PRIVATE KEY-----
-        MIH0MF8GCSqGSIb3DQEFDTBSMDEGCSqGSIb3DQEFDDAkBBA9BLL4kbxiN4dOlIZE
-        nxxsAgIIADAMBggqhkiG9w0CCQUAMB0GCWCGSAFlAwQBKgQQ72a5HguvLkDUto5Q
-        gLjuygSBkCOR6pSeXPp1ym5f+oPwYzT99EXbyxELUI43r01IcfY1i8Ib+rPbHB0K
-        abRjKb/MnJXaRVS3iaQDYmTLK4SF6YcA3wRJtUZWTeCr79PbzkAootHyRjrYT6jN
-        hOm/DLJHiRtNFyRTX+E9r9uMnYACmv6o0lsWScb0NrwPlyW3Ft14ayibtRvCnpEa
-        CB3FgLlR9w==
-        -----END ENCRYPTED PRIVATE KEY-----
-      cookie_key_pass: default
+      cookie_key: "$TH_COOKIE_KEY"
+      cookie_key_pass: $TH_COOKIE_KEY_PASS

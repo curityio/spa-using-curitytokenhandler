@@ -4,11 +4,13 @@ An example SPA demonstrating the code and deployment to integrate with token han
 
 ## Meet Prerequisites
 
-First ensure that these components are installed:
+The example deployment requires the following components, though you could also adapt it to your particular needs:
 
 - Node.js 20+
 - Docker
 - jq
+- OpenSSL 3
+- Linux command line tools: envsubst and awk
 
 Edit your `/etc/hosts` file and add these entries:
 

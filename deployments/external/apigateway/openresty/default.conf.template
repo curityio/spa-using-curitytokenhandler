@@ -52,8 +52,8 @@ server {
             
             local oauth_proxy = require 'oauth-proxy'
             oauth_proxy.run({
-                cookie_key = os.getenv('TH_COOKIE_KEY'),
-                cookie_key_pass = os.getenv('TH_COOKIE_KEY_PASS')
+                cookie_key = '$TH_COOKIE_KEY',
+                cookie_key_pass = '$TH_COOKIE_KEY_PASS'
             })
         }
 
@@ -73,8 +73,8 @@ server {
             
             local oauth_proxy = require 'oauth-proxy'
             oauth_proxy.run({
-                cookie_key = os.getenv('TH_COOKIE_KEY'),
-                cookie_key_pass = os.getenv('TH_COOKIE_KEY_PASS')
+                cookie_key = '$TH_COOKIE_KEY',
+                cookie_key_pass = '$TH_COOKIE_KEY_PASS'
             })
 
             local phantom_token = require 'resty.phantom-token'

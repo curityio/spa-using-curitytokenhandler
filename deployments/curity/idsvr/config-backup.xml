@@ -433,7 +433,7 @@
         <encryption-key>
           <id>oauth-agent-example-publickey</id>
           <curve-name>P-256</curve-name>
-          <keystore>data:application/pem;aes,v:S.Wk02TzllZ1h1N2c5cXNQdw==.O8y2SrkBsVlmIqhK5_wAYw==.GXs2_l466y7Haod7P9wJZL8P5ogNHI10JnrJIFVSKmNwyOnYEssXbzR0ziVAk_L_WT4cg4Y9yBDmb7xXx2q6IDQS2VgypXk7_Xf0tyMu-6ubudobpqa6PYDHDCeUqR2QYMxz5-8yZ39jNaRIVWmPYkv580gUOBxtdsE89-czeKzc09ST0EDdjXSFcmWuWiege9-vTyo-dVXa4WoT_ltCa9UDvcESC1l7oqxGPBbfgllk24JkvB6jadXCvVodbgMd.kY62lj8AcRzDX0kHX8nUMdFiEk9Nt--h0tbw27kIzJ0=</keystore>
+          <keystore>#{TH_COOKIE_CERT}</keystore>
           <type>elliptic-curve</type>
           <external-id>oauth-agent-example-publickey</external-id>
         </encryption-key>
