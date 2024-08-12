@@ -34,6 +34,9 @@ services:
       - ./apigateway/openresty/default.conf:/etc/nginx/conf.d/default.conf
     profiles:
       - openresty
+    depends_on:
+      keycloak:
+        condition: service_started
 
   #
   # The OAuth Agent is the backend for frontend component for the SPA
@@ -89,9 +92,10 @@ services:
       KC_HOSTNAME_STRICT: 'false'
       KC_HTTP_ENABLED: 'true'
       KC_HTTPS_ENABLED: 'false'
+      KC_HEALTH_ENABLED: 'true'
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: Password1
-      KC_LOG_LEVEL: DEBUG
+      KC_LOG_LEVEL: INFO
       KC_DB: postgres
       KC_DB_URL_HOST: keycloak-dbserver
       KC_DB_URL_DATABASE: keycloak
@@ -120,4 +124,4 @@ services:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
       timeout: 5s
-      retries: 5
+      retries: 50

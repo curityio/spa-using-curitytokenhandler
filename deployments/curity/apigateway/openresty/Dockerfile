@@ -1,24 +1,32 @@
 
 FROM openresty/openresty:1.25.3.2-jammy
 
-# Fetch the phantom token plugin from luarocks, and set git options if required
+#
+# Install luarocks, and set git options if required
+#
 RUN apt-get update && apt-get install git -y
 RUN git config --global url."https://".insteadOf git:// && \
-    git config --global advice.detachedHead false && \
-    luarocks install lua-resty-phantom-token 2.0.1
+    git config --global advice.detachedHead false
 
-# Copy the OAuth proxy plugin files
-COPY resources/openresty/plugin/ \
-resources/common-lua-nginx/*.lua \
-/tmp/oauth-proxy/
-
-RUN cd /tmp/oauth-proxy && luarocks make oauth-proxy-*.rockspec \
-&& cd / && rm -r /tmp/oauth-proxy 
-
-# Also copy the CORS module for testing
-COPY resources/openresty/testing/api-gateway/cors.lua \
-openresty/cors-*.rockspec \
-/tmp/cors/
-
+#
+# Install an example CORS plugin 
+#
+COPY openresty/cors.lua \
+     openresty/cors-*.rockspec \
+     /tmp/cors/
 RUN cd /tmp/cors && luarocks make cors-*.rockspec \
-&& cd / && rm -r /tmp/cors
+     && cd / && rm -r /tmp/cors
+
+#
+# Install the OAuth Proxy plugin and its dependencies
+#
+COPY resources/plugin/*.lua \
+    resources/plugin/oauth-proxy-*.rockspec \
+    /tmp/oauth-proxy/
+RUN cd /tmp/oauth-proxy && luarocks make oauth-proxy-*.rockspec \
+    && cd / && rm -r /tmp/oauth-proxy 
+
+#
+# Install the Phantom Token plugin and its dependencies
+#
+RUN luarocks install lua-resty-phantom-token 2.0.1

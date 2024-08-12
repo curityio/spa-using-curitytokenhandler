@@ -4,7 +4,7 @@ _transform: true
 services:
 
 #
-# The SPA makes static content requests using this host name
+# The SPA calls this route to get its web static content
 #
 - name: web-host
   url: http://webhost:3001
@@ -16,7 +16,7 @@ services:
     - /
 
 #
-# The SPA makes front channel requests using this host name
+# The SPA uses this route for OAuth front channel requests
 #
 - name: authorization-server
   url: http://login-internal:8080
@@ -28,7 +28,7 @@ services:
     - /
 
 #
-# The SPA calls its backend for frontend using this hostname and path
+# The SPA uses this route to call its backend for frontend
 #
 - name: oauth-agent
   url: http://bff-internal:8443/oauthagent/example
@@ -40,16 +40,16 @@ services:
     - /oauthagent/example
 
 #
-# The SPA makes API requests using this hostname and path
+# The SPA calls the OAuth user info endpoint and translates the proxy cookies to an access token
 #
-- name: example-api
-  url: http://api-internal:3001
+- name: oauthuserinfo
+  url: http://login-internal:8080/realms/example/protocol/openid-connect/userinfo
   routes:
-  - name: example-api-route
+  - name: oauth-userinfo-route
     hosts:
     - bff.product.example
     paths:
-    - /api
+    - /oauthuserinfo
   plugins:
   - name: cors
     config:
@@ -63,16 +63,16 @@ services:
       cookie_key_pass: $TH_COOKIE_KEY_PASS
 
 #
-# The SPA gets OAuth user info using this hostname and path
+# The SPA calls its APIs and translates the proxy cookies to a JWT access token
 #
-- name: oauthuserinfo
-  url: http://login-internal:8080/realms/example/protocol/openid-connect/userinfo
+- name: example-api
+  url: http://api-internal:3001
   routes:
-  - name: oauth-userinfo-route
+  - name: example-api-route
     hosts:
     - bff.product.example
     paths:
-    - /oauthuserinfo
+    - /api
   plugins:
   - name: cors
     config:

@@ -1,7 +1,6 @@
 #
-# Create caches that can be used by plugins
+# Use the Docker DNS server
 #
-lua_shared_dict phantom-token  10m;
 resolver 127.0.0.11;
 
 #
@@ -9,7 +8,7 @@ resolver 127.0.0.11;
 #
 server {
     server_name www.product.example;
-    listen      3000;
+    listen      3001;
 
     location / {
         proxy_pass http://webhost:3001;
@@ -21,10 +20,10 @@ server {
 #
 server {
     server_name login.example.com;
-    listen      3000;
+    listen      3001;
 
     location / {
-        proxy_pass http://login-internal:8443;
+        proxy_pass http://login-internal:8080;
     }
 }
 
@@ -33,10 +32,10 @@ server {
 #
 server {
     server_name bff.product.example;
-    listen      3000;
+    listen      3001;
 
     location /oauthagent/example {
-        proxy_pass http://login-internal:8443/oauthagent/example;
+        proxy_pass http://bff-internal:8443/oauthagent/example;
     }
  
     location /oauthuserinfo {
@@ -57,7 +56,7 @@ server {
             })
         }
 
-        proxy_pass http://login-internal:8443/oauth/v2/oauth-userinfo;
+        proxy_pass http://login-internal:8080/realms/example/protocol/openid-connect/userinfo;
     }
 
     location /api/ {
@@ -75,14 +74,6 @@ server {
             oauth_proxy.run({
                 cookie_key = '$TH_COOKIE_KEY',
                 cookie_key_pass = '$TH_COOKIE_KEY_PASS'
-            })
-
-            local phantom_token = require 'resty.phantom-token'
-            phantom_token.run({
-                introspection_endpoint = 'http://login-internal:8443/oauth/v2/oauth-introspect',
-                client_id = 'api-gateway-client',
-                client_secret = 'Password1',
-                token_cache_seconds = 900
             })
         }
 

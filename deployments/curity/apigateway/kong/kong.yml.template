@@ -4,7 +4,7 @@ _transform: true
 services:
 
 #
-# The SPA makes static content requests using this host name
+# The SPA calls this route to get its web static content
 #
 - name: web-host
   url: http://webhost:3001
@@ -16,7 +16,7 @@ services:
     - /
 
 #
-# The SPA makes front channel requests using this host name
+# The SPA uses this route for OAuth front channel requests
 #
 - name: authorization-server
   url: http://login-internal:8443
@@ -28,7 +28,7 @@ services:
     - /
 
 #
-# The SPA calls its backend for frontend using this hostname and path
+# The SPA uses this route to call its backend for frontend
 #
 - name: oauth-agent
   url: http://login-internal:8443/oauthagent/example
@@ -40,7 +40,30 @@ services:
     - /oauthagent/example
 
 #
-# The SPA makes API requests using this hostname and path
+# The SPA calls the OAuth user info endpoint and translates the proxy cookies to an access token
+#
+- name: oauthuserinfo
+  url: http://login-internal:8443/oauth/v2/oauth-userinfo
+  routes:
+  - name: oauth-userinfo-route
+    hosts:
+    - bff.product.example
+    paths:
+    - /oauthuserinfo
+  plugins:
+  - name: cors
+    config:
+      origins:
+      - http://www.product.example
+      credentials: true
+      max_age: 86400
+  - name: oauth-proxy
+    config:
+      cookie_key: "$TH_COOKIE_KEY"
+      cookie_key_pass: $TH_COOKIE_KEY_PASS
+
+#
+# The SPA calls its APIs and translates the proxy cookies to a JWT access token
 #
 - name: example-api
   url: http://api-internal:3001
@@ -67,25 +90,3 @@ services:
       client_id: api-gateway-client
       client_secret: Password1
       token_cache_seconds: 900
-#
-# The SPA gets OAuth user info using this hostname and path
-#
-- name: oauthuserinfo
-  url: http://login-internal:8443/oauth/v2/oauth-userinfo
-  routes:
-  - name: oauth-userinfo-route
-    hosts:
-    - bff.product.example
-    paths:
-    - /oauthuserinfo
-  plugins:
-  - name: cors
-    config:
-      origins:
-      - http://www.product.example
-      credentials: true
-      max_age: 86400
-  - name: oauth-proxy
-    config:
-      cookie_key: "$TH_COOKIE_KEY"
-      cookie_key_pass: $TH_COOKIE_KEY_PASS

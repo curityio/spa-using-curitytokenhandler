@@ -49,7 +49,7 @@ export OAUTH_PROXY_TYPE='kong'
 ./deploy.sh
 ```
 
-Access components after deployment:
+Wait a few minutes for components to come up and then access components:
 
 - Curity Token Handler admin UI: `https://localhost:6749` using `admin / Password1`.
 - Keycloak admin UI: `http://login.example.com/admin/master/console/` using `admin / Password1`.
@@ -68,7 +68,7 @@ export OAUTH_PROXY_TYPE='kong'
 ./deploy.sh
 ```
 
-Access components after deployment:
+Wait a few minutes for components to come up and then access components:
 
 - Curity admin UI: `https://localhost:6749` using `admin / Password1`.
 

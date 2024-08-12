@@ -1,8 +1,8 @@
 #
-# Create caches that can be used by plugins
+# Use the Docker DNS server and create a cache for the phantom token plugin
 #
-lua_shared_dict phantom-token  10m;
 resolver 127.0.0.11;
+lua_shared_dict phantom-token  10m;
 
 #
 # The route used by the SPA to get its static content
