@@ -78,7 +78,7 @@ export class ApiClient {
     }
 
     /*
-     * Send a request with a secure cookie - a custom header ensures preflight OPTIONS requests
+     * Send a request with a secure cookie - the 'token-handler-version' header ensures a preflight OPTIONS request
      */
     private async fetchImpl(method: string, path: string): Promise<any> {
 
@@ -92,10 +92,6 @@ export class ApiClient {
             method: method,
             mode: 'cors',
         } as RequestInit;
-
-        if (method === 'POST') {
-            (init.headers as any)['x-custom'] = '123';
-        }
 
         const response = await fetch(url, init);
         if (response.ok) {
