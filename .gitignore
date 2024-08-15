@@ -4,4 +4,7 @@ node_modules
 dist
 resources
 certs/example.*
-token-handler-proxy-kong*.zip
+token-handler-proxy*.zip
+cookie-encryption
+kong.yml
+default.conf

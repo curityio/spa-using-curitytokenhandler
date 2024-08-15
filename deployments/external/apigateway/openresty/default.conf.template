@@ -1,0 +1,82 @@
+#
+# Use the Docker DNS server
+#
+resolver 127.0.0.11;
+
+#
+# The route used by the SPA to get its static content
+#
+server {
+    server_name www.product.example;
+    listen      3001;
+
+    location / {
+        proxy_pass http://webhost:3001;
+    }
+}
+
+#
+# The route used by the SPA to send front channel requests to the authorization server
+#
+server {
+    server_name login.example.com;
+    listen      3001;
+
+    location / {
+        proxy_pass http://login-internal:8080;
+    }
+}
+
+#
+# The routes from the SPA to the backend for frontend
+#
+server {
+    server_name bff.product.example;
+    listen      3001;
+
+    location /oauthagent/example {
+        proxy_pass http://bff-internal:8443/oauthagent/example;
+    }
+ 
+    location /oauthuserinfo {
+
+        rewrite_by_lua_block {
+
+            local cors = require 'cors'
+            cors.run({
+                origins = {'http://www.product.example'},
+                credentials = true,
+                max_age = 86400
+            })
+            
+            local oauth_proxy = require 'oauth-proxy'
+            oauth_proxy.run({
+                cookie_key = '$TH_COOKIE_KEY',
+                cookie_key_pass = '$TH_COOKIE_KEY_PASS'
+            })
+        }
+
+        proxy_pass http://login-internal:8080/realms/example/protocol/openid-connect/userinfo;
+    }
+
+    location /api/ {
+
+        rewrite_by_lua_block {
+            
+            local cors = require 'cors'
+            cors.run({
+                origins = {'http://www.product.example'},
+                credentials = true,
+                max_age = 86400
+            })
+            
+            local oauth_proxy = require 'oauth-proxy'
+            oauth_proxy.run({
+                cookie_key = '$TH_COOKIE_KEY',
+                cookie_key_pass = '$TH_COOKIE_KEY_PASS'
+            })
+        }
+
+        proxy_pass http://api-internal:3001/;
+    }
+}
