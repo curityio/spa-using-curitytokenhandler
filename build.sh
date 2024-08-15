@@ -21,7 +21,7 @@ if [ "$OAUTH_PROXY_TYPE" != 'kong' ] && [ "$OAUTH_PROXY_TYPE" != 'openresty' ]; 
 fi
 
 #
-# Check that the Kong gateway plugin ZIP file is available
+# Check that the a gateway plugin ZIP file is available
 #
 if [ ! -f token-handler-proxy-$OAUTH_PROXY_TYPE*.zip ]; then
   echo 'Please download a gateway plugin to the root folder before building'
@@ -93,7 +93,7 @@ fi
 cd ..
 
 #
-# Unpack the Kong OAuth Proxy Plugin and deploy it in a custom API gateway Docker image
+# Unpack the OAuth Proxy Plugin and deploy it in a custom API gateway Docker image
 #
 cd "./deployments/$DEPLOYMENT/apigateway"
 rm -rf resources 2>/dev/null

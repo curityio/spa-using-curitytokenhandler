@@ -40,7 +40,7 @@ services:
     - /oauthagent/example
 
 #
-# The SPA calls the OAuth user info endpoint and translates the proxy cookies to an access token
+# The SPA calls the OAuth user info endpoint and the OAuth proxy plugin translates the proxy cookie to an access token
 #
 - name: oauthuserinfo
   url: http://login-internal:8080/realms/example/protocol/openid-connect/userinfo
@@ -63,7 +63,7 @@ services:
       cookie_key_pass: $TH_COOKIE_KEY_PASS
 
 #
-# The SPA calls its APIs and translates the proxy cookies to a JWT access token
+# The SPA calls its APIs and the gateway plugins translate the proxy cookie to a JWT access token
 #
 - name: example-api
   url: http://api-internal:3001
