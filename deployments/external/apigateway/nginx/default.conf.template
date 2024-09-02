@@ -1,0 +1,103 @@
+resolver 127.0.0.11;
+
+#
+# The route used by the SPA to get its static content
+#
+server {
+    server_name www.product.example;
+    listen      3000;
+
+    location / {
+        proxy_pass http://webhost:3001;
+    }
+}
+
+#
+# The route used by the SPA to send front channel requests to the authorization server
+#
+server {
+    server_name login.example.com;
+    listen      3000;
+
+    location / {
+        proxy_pass http://login-internal:8080;
+    }
+}
+
+#
+# The routes from the SPA to the backend for frontend
+#
+server {
+    server_name bff.product.example;
+    listen      3000;
+
+    location /oauthagent/example {
+        proxy_pass http://login-internal:8443/oauthagent/example;
+    }
+
+    location /api/ {
+
+        set $cors_mode '';
+        if ($http_origin = 'http://www.product.example') {
+            set $cors_mode 'matched';
+        }
+
+        if ($request_method = 'OPTIONS') {
+            set $cors_mode '${cors_mode}-preflight';
+        }
+
+        if ($cors_mode = 'matched') {
+            add_header 'access-control-allow-origin' $http_origin always;
+            add_header 'access-control-allow-credentials' true always;
+            add_header 'vary' 'origin';
+        }
+
+        if ($cors_mode = 'matched-preflight') {
+            add_header 'access-control-allow-origin' $http_origin;
+            add_header 'access-control-allow-credentials' true;
+            add_header 'access-control-allow-methods' 'GET,POST,PUT,PATCH,DELETE';
+            add_header 'access-control-allow-headers' $http_access_control_request_headers;
+            add_header 'access-control-max-age' 86400;
+            add_header 'vary' 'origin, access-control-request-headers';
+            return 200;
+        }
+
+        oauth_proxy on;
+        oauth_proxy_key "${TH_COOKIE_KEY}" "${TH_COOKIE_KEY_PASS}";
+
+        proxy_pass http://api-internal:3001/;
+    }
+
+    location /oauthuserinfo {
+
+        set $cors_mode '';
+        if ($http_origin = 'http://www.product.example') {
+            set $cors_mode 'matched';
+        }
+
+        if ($request_method = 'OPTIONS') {
+            set $cors_mode '${cors_mode}-preflight';
+        }
+
+        if ($cors_mode = 'matched') {
+            add_header 'access-control-allow-origin' $http_origin always;
+            add_header 'access-control-allow-credentials' true always;
+            add_header 'vary' 'origin';
+        }
+
+        if ($cors_mode = 'matched-preflight') {
+            add_header 'access-control-allow-origin' $http_origin;
+            add_header 'access-control-allow-credentials' true;
+            add_header 'access-control-allow-methods' 'GET,POST,PUT,PATCH,DELETE';
+            add_header 'access-control-allow-headers' $http_access_control_request_headers;
+            add_header 'access-control-max-age' 86400;
+            add_header 'vary' 'origin, access-control-request-headers';
+            return 200;
+        }
+
+        oauth_proxy on;
+        oauth_proxy_key "${TH_COOKIE_KEY}" "${TH_COOKIE_KEY_PASS}";
+
+        proxy_pass http://login-internal:8080/realms/example/protocol/openid-connect/userinfo;
+    }
+}
