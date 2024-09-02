@@ -32,7 +32,7 @@ server {
     listen      3000;
 
     location /oauthagent/example {
-        proxy_pass http://login-internal:8443/oauthagent/example;
+        proxy_pass http://bff-internal:8443/oauthagent/example;
     }
 
     location /api/ {

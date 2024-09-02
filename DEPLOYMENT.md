@@ -26,7 +26,7 @@ Us the [Curity developer portal](https://developer.curity.io/releases/token-hand
 - [Kong OAuth Proxy 2.0+](https://developer.curity.io/releases/token-handler?proxy=kong)
 - [OpenResty OAuth Proxy 2.0+](https://developer.curity.io/releases/token-handler?proxy=openresty)
 
-Also, ensure that your computer's Curity Docker image is up to date (9.4.0 or later):
+Also, ensure that your computer's Curity Docker image is up to date (9.5.0 or later):
 
 ```bash
 docker pull curity.azurecr.io/curity/idsvr
