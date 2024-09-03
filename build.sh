@@ -22,13 +22,10 @@ fi
 
 #
 # Check that a gateway plugin ZIP file is available
-# TODO: remove NGINX specific behavior once NGINX modules are published on the developer portal
 #
-if [ "$OAUTH_PROXY_TYPE" != 'nginx' ]; then
-  if [ ! -f token-handler-proxy-$OAUTH_PROXY_TYPE*.zip ]; then
-    echo 'Please download a gateway plugin to the root folder before building'
-    exit 1
-  fi
+if [ ! -f token-handler-proxy-$OAUTH_PROXY_TYPE*.zip ]; then
+  echo 'Please download a gateway plugin to the root folder before building'
+  exit 1
 fi
 
 #
@@ -99,27 +96,20 @@ cd ..
 #
 cd "./deployments/$DEPLOYMENT/apigateway"
 rm -rf resources 2>/dev/null
-
-#
-# TODO: remove NGINX specific behavior once NGINX modules are published on the developer portal
-#
-if [ "$OAUTH_PROXY_TYPE" == 'nginx' ]; then
-  
-  mkdir resources
-  cp ~/ngx_http_oauth_proxy_module.so ~/alpine.ngx_curity_http_phantom_token_module_1.25.5.so resources
-  
-else  
-  unzip ../../../token-handler-proxy-$OAUTH_PROXY_TYPE*.zip -d ./resources
-  if [ $? -ne 0 ]; then
-    echo 'Problem encountered unzipping the OAuth proxy files'
-    exit 1
-  fi
+unzip ../../../token-handler-proxy-$OAUTH_PROXY_TYPE*.zip -d ./resources
+if [ $? -ne 0 ]; then
+  echo 'Problem encountered unzipping the OAuth proxy files'
+  exit 1
 fi
 
 #
 # Build a custom Docker image for the API gateway that contains plugins
 #
 if [ "$OAUTH_PROXY_TYPE" == 'nginx' ]; then
+  
+  # TODO: Delete this line after the release of phantom token 1.6.0
+  cp ~/alpine.ngx_curity_http_phantom_token_module_1.25.5.so ./resources
+  
   docker build -f nginx/Dockerfile -t apigateway-nginx:1.0.0 .
 elif [ "$OAUTH_PROXY_TYPE" == 'openresty' ]; then
   docker build -f openresty/Dockerfile -t apigateway-openresty:1.0.0 .
