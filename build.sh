@@ -106,10 +106,6 @@ fi
 # Build a custom Docker image for the API gateway that contains plugins
 #
 if [ "$OAUTH_PROXY_TYPE" == 'nginx' ]; then
-  
-  # TODO: Delete this line after the release of phantom token 1.6.0
-  cp ~/alpine.ngx_curity_http_phantom_token_module_1.25.5.so ./resources
-  
   docker build -f nginx/Dockerfile -t apigateway-nginx:1.0.0 .
 elif [ "$OAUTH_PROXY_TYPE" == 'openresty' ]; then
   docker build -f openresty/Dockerfile -t apigateway-openresty:1.0.0 .
