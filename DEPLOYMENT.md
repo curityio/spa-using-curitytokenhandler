@@ -23,8 +23,9 @@ Rename it to `license.json` and copy it into the root folder of this project.
 
 Us the [Curity developer portal](https://developer.curity.io/releases/token-handler) to download one of the OAuth Proxy zip files to the root folder of this project:
 
-- [Kong OAuth Proxy 2.0+](https://developer.curity.io/releases/token-handler?proxy=kong)
-- [OpenResty OAuth Proxy 2.0+](https://developer.curity.io/releases/token-handler?proxy=openresty)
+- [Kong OAuth Proxy 2.0.0+](https://developer.curity.io/releases/token-handler?proxy=kong)
+- [OpenResty OAuth Proxy 2.0.1+](https://developer.curity.io/releases/token-handler?proxy=openresty)
+- [NGINX OAuth Proxy 2.0.0+](https://developer.curity.io/releases/token-handler?proxy=nginx)
 
 Also, ensure that your computer's Curity Docker image is up to date (9.5.0 or later):
 

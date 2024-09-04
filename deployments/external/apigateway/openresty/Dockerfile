@@ -11,7 +11,7 @@ RUN git config --global url."https://".insteadOf git:// && \
 #
 # Install an example CORS plugin 
 #
-COPY openresty/cors/* /tmp/cors/
+COPY resources/examples/* /tmp/cors/
 RUN cd /tmp/cors && luarocks make cors-*.rockspec \
      && cd / && rm -r /tmp/cors
 
