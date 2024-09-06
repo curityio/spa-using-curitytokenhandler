@@ -41,7 +41,7 @@ services:
     image: apigateway-nginx:1.0.0
     hostname: apigateway-internal
     ports:
-      - 80:3000
+      - 80:3001
     volumes:
       - ./apigateway/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./apigateway/nginx/default.conf:/etc/nginx/templates/default.conf.template
