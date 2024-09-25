@@ -1,0 +1,126 @@
+#
+# Configure a cache for the phantom token module
+#
+proxy_cache_path cache levels=1:2 keys_zone=api_cache:10m max_size=10g inactive=60m use_temp_path=off;
+resolver 127.0.0.11;
+
+#
+# The route used by the SPA to get its static content
+#
+server {
+    server_name www.product.example;
+    listen      3001;
+
+    location / {
+        proxy_pass http://webhost:3001;
+    }
+}
+
+#
+# The route used by the SPA to send front channel requests to the authorization server
+#
+server {
+    server_name login.example.com;
+    listen      3001;
+
+    location / {
+        proxy_pass http://login-internal:8443;
+    }
+}
+
+#
+# The routes from the SPA to the backend for frontend
+#
+server {
+    server_name bff.product.example;
+    listen      3001;
+
+    location /oauthagent/example {
+        proxy_pass http://login-internal:8443/oauthagent/example;
+    }
+
+    location /api/ {
+
+        # First run the CORS module
+        set $cors_mode '';
+        if ($http_origin = 'http://www.product.example') {
+            set $cors_mode 'matched';
+        }
+
+        if ($request_method = 'OPTIONS') {
+            set $cors_mode '${cors_mode}-preflight';
+        }
+
+        if ($cors_mode = 'matched') {
+            add_header 'access-control-allow-origin' $http_origin always;
+            add_header 'access-control-allow-credentials' true always;
+            add_header 'vary' 'origin';
+        }
+
+        if ($cors_mode = 'matched-preflight') {
+            add_header 'access-control-allow-origin' $http_origin;
+            add_header 'access-control-allow-credentials' true;
+            add_header 'access-control-allow-methods' 'GET,POST,PUT,PATCH,DELETE';
+            add_header 'access-control-allow-headers' $http_access_control_request_headers;
+            add_header 'access-control-max-age' 86400;
+            add_header 'vary' 'origin, access-control-request-headers';
+            return 200;
+        }
+
+        # Run the OAuth Proxy module to get the opaque access token from a cookie
+        oauth_proxy on;
+        oauth_proxy_key "${TH_COOKIE_KEY}" "${TH_COOKIE_KEY_PASS}";
+
+        # Run the Phantom Token module to get a JWT access token from an opaque access token
+        phantom_token on;
+        phantom_token_client_credential api-gateway-client Password1;
+        phantom_token_introspection_endpoint curity;
+
+        # Forward the JWT access token to the API
+        proxy_pass http://api-internal:3001/;
+    }
+
+    location /oauthuserinfo {
+
+        # First run the CORS module
+        set $cors_mode '';
+        if ($http_origin = 'http://www.product.example') {
+            set $cors_mode 'matched';
+        }
+
+        if ($request_method = 'OPTIONS') {
+            set $cors_mode '${cors_mode}-preflight';
+        }
+
+        if ($cors_mode = 'matched') {
+            add_header 'access-control-allow-origin' $http_origin always;
+            add_header 'access-control-allow-credentials' true always;
+            add_header 'vary' 'origin';
+        }
+
+        if ($cors_mode = 'matched-preflight') {
+            add_header 'access-control-allow-origin' $http_origin;
+            add_header 'access-control-allow-credentials' true;
+            add_header 'access-control-allow-methods' 'GET,POST,PUT,PATCH,DELETE';
+            add_header 'access-control-allow-headers' $http_access_control_request_headers;
+            add_header 'access-control-max-age' 86400;
+            add_header 'vary' 'origin, access-control-request-headers';
+            return 200;
+        }
+
+        # Run the OAuth Proxy module to get the opaque access token from a cookie
+        oauth_proxy on;
+        oauth_proxy_key "${TH_COOKIE_KEY}" "${TH_COOKIE_KEY_PASS}";
+
+        # Forward the opaque access token to the authorization server
+        proxy_pass http://login-internal:8443/oauth/v2/oauth-userinfo;
+    }
+
+    location curity {
+        proxy_pass http://login-internal:8443/oauth/v2/oauth-introspect;
+        proxy_cache_methods POST;
+        proxy_cache api_cache;
+        proxy_cache_key §request_body;
+        proxy_ignore_headers Set-Cookie;
+    }
+}

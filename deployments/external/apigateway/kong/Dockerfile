@@ -13,8 +13,6 @@ RUN git config --global url."https://".insteadOf git:// && \
 #
 # Install the OAuth Proxy plugin and its dependencies
 #
-COPY resources/plugin/*.lua \
-    resources/plugin/oauth-proxy-*.rockspec \
-    /tmp/oauth-proxy/
+COPY resources/plugin/* /tmp/oauth-proxy/
 RUN cd /tmp/oauth-proxy && luarocks make oauth-proxy-*.rockspec \
     && cd / && rm -r /tmp/oauth-proxy 

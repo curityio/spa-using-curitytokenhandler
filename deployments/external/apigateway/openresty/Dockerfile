@@ -11,17 +11,13 @@ RUN git config --global url."https://".insteadOf git:// && \
 #
 # Install an example CORS plugin 
 #
-COPY openresty/cors.lua \
-     openresty/cors-*.rockspec \
-     /tmp/cors/
+COPY resources/examples/* /tmp/cors/
 RUN cd /tmp/cors && luarocks make cors-*.rockspec \
      && cd / && rm -r /tmp/cors
 
 #
 # Install the OAuth Proxy plugin and its dependencies
 #
-COPY resources/plugin/*.lua \
-    resources/plugin/oauth-proxy-*.rockspec \
-    /tmp/oauth-proxy/
+COPY resources/plugin/* /tmp/oauth-proxy/
 RUN cd /tmp/oauth-proxy && luarocks make oauth-proxy-*.rockspec \
     && cd / && rm -r /tmp/oauth-proxy 

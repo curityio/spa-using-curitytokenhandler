@@ -1,8 +1,7 @@
 services:
 
   #
-  # The SPA calls all backend components via the API gateway
-  # When using Kong, the SPA routes are defined in the kong.yml file
+  # With this profile the SPA calls all backend components via a Kong API gateway
   #
   api-gateway-kong:
     image: apigateway-kong:1.0.0
@@ -22,8 +21,7 @@ services:
       - kong
 
   #
-  # The SPA calls all backend components via the API gateway
-  # When using OpenResty, the SPA routes are defined in the default.conf file
+  # With this profile the SPA calls all backend components via an OpenResty API gateway
   #
   api-gateway-openresty:
     image: apigateway-openresty:1.0.0
@@ -35,6 +33,20 @@ services:
       - ./apigateway/openresty/default.conf:/etc/nginx/conf.d/default.conf
     profiles:
       - openresty
+
+  #
+  # With this profile the SPA calls all backend components via an NGINX API gateway
+  #
+  api-gateway-nginx:
+    image: apigateway-nginx:1.0.0
+    hostname: apigateway-internal
+    ports:
+      - 80:3001
+    volumes:
+      - ./apigateway/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./apigateway/nginx/default.conf:/etc/nginx/templates/default.conf.template
+    profiles:
+      - nginx
 
   #
   # The web static content host

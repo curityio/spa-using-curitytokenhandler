@@ -18,7 +18,7 @@ if [ "$DEPLOYMENT" != 'external' ] && [ "$DEPLOYMENT" != 'curity' ]; then
   exit 1
 fi
 
-if [ "$OAUTH_PROXY_TYPE" != 'kong' ] && [ "$OAUTH_PROXY_TYPE" != 'openresty' ]; then
+if [ "$OAUTH_PROXY_TYPE" != 'kong' ] && [ "$OAUTH_PROXY_TYPE" != 'openresty' ] && [ "$OAUTH_PROXY_TYPE" != 'nginx' ]; then
   echo 'The OAUTH_PROXY_TYPE environment variable has not been configured correctly'
   exit 1
 fi

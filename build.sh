@@ -15,13 +15,13 @@ if [ "$DEPLOYMENT" != 'external' ] && [ "$DEPLOYMENT" != 'curity' ]; then
   exit 1
 fi
 
-if [ "$OAUTH_PROXY_TYPE" != 'kong' ] && [ "$OAUTH_PROXY_TYPE" != 'openresty' ]; then
+if [ "$OAUTH_PROXY_TYPE" != 'kong' ] && [ "$OAUTH_PROXY_TYPE" != 'openresty' ] && [ "$OAUTH_PROXY_TYPE" != 'nginx' ]; then
   echo 'The OAUTH_PROXY_TYPE environment variable has not been configured correctly'
   exit 1
 fi
 
 #
-# Check that the a gateway plugin ZIP file is available
+# Check that a gateway plugin ZIP file is available
 #
 if [ ! -f token-handler-proxy-$OAUTH_PROXY_TYPE*.zip ]; then
   echo 'Please download a gateway plugin to the root folder before building'
@@ -48,7 +48,6 @@ cd ..
 #
 # Prepare the example web host
 #
-
 cd webhost
 npm install
 if [ $? -ne 0 ]; then
@@ -93,18 +92,22 @@ fi
 cd ..
 
 #
-# Unpack the OAuth Proxy Plugin and deploy it in a custom API gateway Docker image
+# Unpack the OAuth Proxy Plugin
 #
 cd "./deployments/$DEPLOYMENT/apigateway"
 rm -rf resources 2>/dev/null
-
 unzip ../../../token-handler-proxy-$OAUTH_PROXY_TYPE*.zip -d ./resources
 if [ $? -ne 0 ]; then
   echo 'Problem encountered unzipping the OAuth proxy files'
   exit 1
 fi
 
-if [ "$OAUTH_PROXY_TYPE" == 'openresty' ]; then
+#
+# Build a custom Docker image for the API gateway that contains plugins
+#
+if [ "$OAUTH_PROXY_TYPE" == 'nginx' ]; then
+  docker build -f nginx/Dockerfile -t apigateway-nginx:1.0.0 .
+elif [ "$OAUTH_PROXY_TYPE" == 'openresty' ]; then
   docker build -f openresty/Dockerfile -t apigateway-openresty:1.0.0 .
 else
   docker build -f kong/Dockerfile -t apigateway-kong:1.0.0 .

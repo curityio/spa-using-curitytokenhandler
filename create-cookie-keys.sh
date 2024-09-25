@@ -48,10 +48,12 @@ fi
 # Finalize the SPA's API gateway routes
 #
 cd ./deployments/$DEPLOYMENT/apigateway
-if [ "$OAUTH_PROXY_TYPE" == 'openresty' ]; then
-  envsubst < ./openresty/default.conf.template > ./openresty/default.conf
+if [ "$OAUTH_PROXY_TYPE" == 'nginx' ]; then
+  envsubst '$TH_COOKIE_KEY,$TH_COOKIE_KEY_PASS' < ./nginx/default.conf.template > ./nginx/default.conf
+elif [ "$OAUTH_PROXY_TYPE" == 'openresty' ]; then
+  envsubst '$TH_COOKIE_KEY,$TH_COOKIE_KEY_PASS' < ./openresty/default.conf.template > ./openresty/default.conf
 else
-  envsubst < ./kong/kong.yml.template > ./kong/kong.yml
+  envsubst '$TH_COOKIE_KEY,$TH_COOKIE_KEY_PASS' < ./kong/kong.yml.template > ./kong/kong.yml
 fi
 if [ $? -ne 0 ]; then
   echo 'Problem encountered updating API gateway configuration with cookie encryption keys'
