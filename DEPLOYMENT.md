@@ -21,7 +21,7 @@ Edit your `/etc/hosts` file and add these entries:
 Download a [Trial License](https://developer.curity.io/free-trial) from the developer portal with access to the applications / token handler feature.\
 Rename it to `license.json` and copy it into the root folder of this project.
 
-Us the [Curity developer portal](https://developer.curity.io/releases/token-handler) to download one of the OAuth Proxy zip files to the root folder of this project:
+Use the [Curity developer portal](https://developer.curity.io/releases/token-handler) to download one of the OAuth Proxy zip files to the root folder of this project:
 
 - [Kong OAuth Proxy 2.0.0+](https://developer.curity.io/releases/token-handler?proxy=kong)
 - [OpenResty OAuth Proxy 2.0.1+](https://developer.curity.io/releases/token-handler?proxy=openresty)
@@ -41,7 +41,7 @@ Two example deployments are provided, to explain the moving parts of the end-to-
 
 An instance of Keycloak acts as the external authorization server that issues RS256 JWTs as access tokens.\
 The OAuth Agent is deployed as a stateless API that issues cookies to the SPA.\
-Choose an OAuth proxy type of either `kong` or `openresty`:
+Choose an OAuth proxy type of `kong`, `openresty` or `nginx`:
 
 ```bash
 export DEPLOYMENT='external'
@@ -60,7 +60,7 @@ Wait a few minutes for components to come up and then access components:
 
 The Curity Identity Server issues opaque access tokens.\
 A single instance of the Docker deployment acts as both authorization server and OAuth Agent.\
-Choose an OAuth proxy type of either `kong` or `openresty`:
+Choose an OAuth proxy type of `kong`, `openresty` or `nginx`:
 
 ```bash
 export DEPLOYMENT='curity'
