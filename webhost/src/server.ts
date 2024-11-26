@@ -1,7 +1,6 @@
 import express from 'express';
 import fs from 'fs';
 import https from 'https';
-import path from 'path';
 import {Configuration} from './configuration';
 
 /*
@@ -39,23 +38,15 @@ app.use((request: express.Request, response: express.Response, next: express.Nex
 });
 
 /*
- * Then serve static content, which is done from a different path when running in a deployed container
+ * Then serve static content
  */
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static('./content'));
-} else {
-    app.use(express.static(path.resolve(__dirname, '../../spa/dist')));
-}
+app.use(express.static('./content'));
 
 /*
  * Handle not found routes like /callback by serving the default document
  */
 app.get('*', (request, response) => {
-    if (process.env.NODE_ENV === 'production') {
-        response.sendFile('index.html', {root: './content'});
-    } else {
-        response.sendFile('index.html', {root: '../../spa/dist'});
-    }
+    response.sendFile('index.html', {root: './content'});
 });
 
 /*

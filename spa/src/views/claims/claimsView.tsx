@@ -1,11 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {ClaimsProps} from './claimsProps';
 
 export function ClaimsView(props: ClaimsProps) {
 
     function getAuthenticationTime(): string {
 
-        console.log(props.claims);
         if (!props.claims) {
             return 'No ID token claims issued';
         }

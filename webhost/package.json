@@ -1,7 +1,7 @@
 {
     "name": "webhost",
     "version": "1.0.0",
-    "description": "A simple web host to serve static content and set security headers",
+    "description": "An example web host for deployed environments to serve static content and set security headers",
     "author": "Curity AB",
     "license": "Apache-2.0",
     "main": "server.ts",
