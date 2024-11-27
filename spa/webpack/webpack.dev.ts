@@ -22,7 +22,7 @@ const devServer: webpackDevServer.Configuration = {
     historyApiFallback: true,
     hot: true,
     allowedHosts: [
-        'www.product.example', 'login.example.com'
+        'www.product.example',
     ],
 };
 
