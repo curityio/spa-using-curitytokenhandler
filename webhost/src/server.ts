@@ -45,7 +45,7 @@ app.use(express.static('./content'));
 /*
  * Handle not found routes like /callback by serving the default document
  */
-app.get('*', (request, response) => {
+app.get('/*_', (request: express.Request, response: express.Response) => {
     response.sendFile('index.html', {root: './content'});
 });
 
@@ -62,12 +62,12 @@ if (configuration.keystoreFilePath) {
 
     const httpsServer = https.createServer(sslOptions, app);
     httpsServer.listen(configuration.port, () => {
-        console.log(`Web Host is listening on HTTPS port ${configuration.port}`);
+        console.log(`Web host is listening on HTTPS port ${configuration.port}`);
     });
 
 } else {
 
     app.listen(configuration.port, () => {
-        console.log(`Web Host is listening on HTTP port ${configuration.port}`);
+        console.log(`Web host is listening on HTTP port ${configuration.port}`);
     });
 }
