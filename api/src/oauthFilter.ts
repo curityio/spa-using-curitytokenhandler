@@ -22,7 +22,7 @@ export class OAuthFilter {
         const options = {
             issuer: this.configuration.issuer,
             audience: this.configuration.audience,
-            algorithm: this.configuration.algorithm,
+            algorithms: [this.configuration.algorithm],
         } as JWTVerifyOptions;
 
         try {
@@ -33,6 +33,7 @@ export class OAuthFilter {
                 return;
             }
 
+            console.log(accessToken);
             const result = await jwtVerify(accessToken, this.jwksService, options);
             response.locals.claims = result.payload;
             next();

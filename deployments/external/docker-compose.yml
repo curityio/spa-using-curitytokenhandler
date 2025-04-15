@@ -98,7 +98,7 @@ services:
   # Keycloak is used as the external authorization server
   #
   keycloak:
-    image: quay.io/keycloak/keycloak:25.0.1
+    image: quay.io/keycloak/keycloak:26.1.0
     hostname: login-internal
     ports:
     - 8080:8080
@@ -129,7 +129,7 @@ services:
   # Keycloak's data includes preshipped user accounts
   #
   keycloakdata:
-    image: postgres:16.3
+    image: postgres:17.4
     hostname: keycloak-dbserver
     environment:
       POSTGRES_USER: postgres
