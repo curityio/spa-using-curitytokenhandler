@@ -6,8 +6,8 @@ import {Configuration} from './configuration';
 /*
  * First load configuration
  */
-const buffer = fs.readFileSync('config.json');
-const configuration = JSON.parse(buffer.toString()) as Configuration;
+const configurationJson = fs.readFileSync('config.json', 'utf8');
+const configuration = JSON.parse(configurationJson) as Configuration;
 
 /*
  * Write security headers when a request is first received

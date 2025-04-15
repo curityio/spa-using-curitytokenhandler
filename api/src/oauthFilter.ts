@@ -1,6 +1,6 @@
-import {createRemoteJWKSet, jwtVerify, JWTVerifyGetKey, JWTVerifyOptions} from 'jose';
-import {Configuration} from './configuration';
 import {NextFunction, Request, Response} from 'express';
+import {createRemoteJWKSet, jwtVerify, JWTVerifyGetKey, JWTVerifyOptions} from 'jose';
+import {Configuration} from './configuration.js';
 
 /*
  * Create a service for getting token signing public keys
