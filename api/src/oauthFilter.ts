@@ -33,7 +33,6 @@ export class OAuthFilter {
                 return;
             }
 
-            console.log(accessToken);
             const result = await jwtVerify(accessToken, this.jwksService, options);
             response.locals.claims = result.payload;
             next();
