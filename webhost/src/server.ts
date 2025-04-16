@@ -6,8 +6,8 @@ import {Configuration} from './configuration';
 /*
  * First load configuration
  */
-const buffer = fs.readFileSync('config.json');
-const configuration = JSON.parse(buffer.toString()) as Configuration;
+const configurationJson = fs.readFileSync('config.json', 'utf8');
+const configuration = JSON.parse(configurationJson) as Configuration;
 
 /*
  * Write security headers when a request is first received
@@ -45,7 +45,7 @@ app.use(express.static('./content'));
 /*
  * Handle not found routes like /callback by serving the default document
  */
-app.get('*', (request, response) => {
+app.get('/*_', (request: express.Request, response: express.Response) => {
     response.sendFile('index.html', {root: './content'});
 });
 
@@ -62,12 +62,12 @@ if (configuration.keystoreFilePath) {
 
     const httpsServer = https.createServer(sslOptions, app);
     httpsServer.listen(configuration.port, () => {
-        console.log(`Web Host is listening on HTTPS port ${configuration.port}`);
+        console.log(`Web host is listening on HTTPS port ${configuration.port}`);
     });
 
 } else {
 
     app.listen(configuration.port, () => {
-        console.log(`Web Host is listening on HTTP port ${configuration.port}`);
+        console.log(`Web host is listening on HTTP port ${configuration.port}`);
     });
 }

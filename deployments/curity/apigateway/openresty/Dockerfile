@@ -1,5 +1,5 @@
 
-FROM openresty/openresty:1.25.3.2-jammy
+FROM openresty/openresty:1.27.1.2-noble
 
 #
 # Install luarocks, and set git options if required
