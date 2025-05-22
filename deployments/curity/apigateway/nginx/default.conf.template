@@ -73,7 +73,6 @@ server {
 
         # Run the Phantom Token module to get a JWT access token from an opaque access token
         phantom_token on;
-        phantom_token_client_credential api-gateway-client Password1;
         phantom_token_introspection_endpoint curity;
 
         # Forward the JWT access token to the API
@@ -117,10 +116,22 @@ server {
     }
 
     location curity {
-        proxy_pass http://login-internal:8443/oauth/v2/oauth-introspect;
+
+        # Avoid exposing this route externally
+        internal;
+
+        # Configure introspection headers including a basic credential of base64encode(api-gateway-client:Password1)
+        proxy_pass_request_headers off;
+        proxy_set_header Accept "application/jwt";
+        proxy_set_header Content-Type "application/x-www-form-urlencoded";
+        proxy_set_header Authorization "Basic YXBpLWdhdGV3YXktY2xpZW50OlBhc3N3b3JkMQ==";
+        
+        # Configure the introspection results cache
         proxy_cache_methods POST;
         proxy_cache api_cache;
         proxy_cache_key §request_body;
         proxy_ignore_headers Set-Cookie;
+
+        proxy_pass http://login-internal:8443/oauth/v2/oauth-introspect;
     }
 }
