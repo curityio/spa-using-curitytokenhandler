@@ -2,7 +2,7 @@ FROM kong/kong:3.9-ubuntu
 
 USER root
 RUN apt-get update
-RUN apt-get install -y git unzip
+RUN apt-get install -y git unzip wget
 
 #
 # Install luarocks, and set git options if required
@@ -20,4 +20,4 @@ RUN cd /tmp/oauth-proxy && luarocks make oauth-proxy-*.rockspec \
 #
 # Install the Phantom Token plugin and its dependencies
 #
-RUN luarocks install kong-phantom-token 2.0.0
+RUN luarocks install kong-phantom-token 2.0.1
