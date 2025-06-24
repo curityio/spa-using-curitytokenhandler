@@ -18,9 +18,6 @@ Edit your `/etc/hosts` file and add these entries:
 127.0.0.1 www.product.example bff.product.example login.example.com
 ```
 
-Download a [Trial License](https://developer.curity.io/free-trial) from the developer portal with access to the applications / token handler feature.\
-Rename it to `license.json` and copy it into the root folder of this project.
-
 Use the [Curity developer portal](https://developer.curity.io/releases/token-handler) to download one of the OAuth Proxy zip files to the root folder of this project:
 
 - [Kong OAuth Proxy 2.0.0+](https://developer.curity.io/releases/token-handler?proxy=kong)
@@ -38,6 +35,9 @@ docker pull curity.azurecr.io/curity/idsvr
 Two example deployments are provided, to explain the moving parts of the end-to-end solution.
 
 ### Scenario 1: SPA uses an External Authorization Server
+
+Download a [Trial License](https://developer.curity.io/free-trial) from the developer portal with access to the `applications` feature.\
+Rename the file to `license.json` and copy it into the root folder of this project.
 
 An instance of Keycloak acts as the external authorization server that issues RS256 JWTs as access tokens.\
 The OAuth Agent is deployed as a stateless API that issues cookies to the SPA.\
@@ -58,7 +58,19 @@ Wait a few minutes for components to come up and then access components:
 
 ### Scenario 2: SPA uses the Curity Identity Server as the Authorization Server
 
-The Curity Identity Server issues opaque access tokens.\
+Download a [Trial License](https://developer.curity.io/free-trial) from the developer portal with access to the following features.\
+Rename the file to `license.json` and copy it into the root folder of this project.
+
+- applications
+- financial-grade
+
+The Curity Identity Server deployment demonstrates the following additional features.
+
+- Opaque access tokens that help to ensure small cookies.
+- JWT client assertions as an OAuth client credential.
+- Pushed authorization requests (PAR).
+- JWT Secured Authorization Response Mode (JARM).
+
 A single instance of the Docker deployment acts as both authorization server and OAuth Agent.\
 Choose an OAuth proxy type of `kong`, `openresty` or `nginx`:
 

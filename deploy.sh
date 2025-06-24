@@ -3,14 +3,6 @@
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
 #
-# Check that a valid license is available
-#
-./validate-license.sh
-if [ $? -ne 0 ]; then
-  exit 1
-fi
-
-#
 # Validate input
 #
 if [ "$DEPLOYMENT" != 'external' ] && [ "$DEPLOYMENT" != 'curity' ]; then
@@ -20,6 +12,14 @@ fi
 
 if [ "$OAUTH_PROXY_TYPE" != 'kong' ] && [ "$OAUTH_PROXY_TYPE" != 'openresty' ] && [ "$OAUTH_PROXY_TYPE" != 'nginx' ]; then
   echo 'The OAUTH_PROXY_TYPE environment variable has not been configured correctly'
+  exit 1
+fi
+
+#
+# Check that a valid license is available
+#
+./validate-license.sh
+if [ $? -ne 0 ]; then
   exit 1
 fi
 
