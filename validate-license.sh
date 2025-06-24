@@ -28,8 +28,23 @@ fi
 LICENSE_DATA=$(cat './license.json')
 LICENSE_JWT=$(echo $LICENSE_DATA | jq -r .License)
 LICENSE_PAYLOAD=$(base64url_decode $(echo $LICENSE_JWT | cut -d '.' -f 2))
-APPLICATIONS_FEATURE=$(echo $LICENSE_PAYLOAD | jq -r '.Features[]  | select(.feature == "applications")')
-if [ "$APPLICATIONS_FEATURE" == '' ]; then
+
+#
+# Check for token handler permissions
+#
+FEATURE=$(echo $LICENSE_PAYLOAD | jq -r '.Features[]  | select(.feature == "applications")')
+if [ "$FEATURE" == '' ]; then
   echo 'The license.json file does not include the applications feature'
   exit 1
+fi
+
+#
+# For Curity deployments, check for the financial grade package
+#
+if [ "$DEPLOYMENT" == 'curity' ]; then
+  FEATURE=$(echo $LICENSE_PAYLOAD | jq -r '.Features[]  | select(.feature == "financial-grade")')
+  if [ "$FEATURE" == '' ]; then
+    echo 'The license.json file does not include the financial-grade feature'
+    exit 1
+  fi
 fi

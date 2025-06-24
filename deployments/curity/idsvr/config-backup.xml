@@ -305,11 +305,10 @@
                 </user-authentication>
                 <capabilities>
                   <code>
+                    <require-pushed-authorization-requests></require-pushed-authorization-requests>
                   </code>
                 </capabilities>
-                <use-pairwise-subject-identifiers>
-                  <sector-identifier>spa-client</sector-identifier>
-                </use-pairwise-subject-identifiers>
+                <require-secured-authorization-response/>
                 <validate-port-on-loopback-interfaces>true</validate-port-on-loopback-interfaces>
               </client>
               <client>
