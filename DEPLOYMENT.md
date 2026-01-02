@@ -85,6 +85,13 @@ Browse to the SPA at `http://www.product.example`.\
 Log in as the pre-shipped account `demouser` / `Password1`.\
 Test all OAuth lifecycle operations against token handler components running at `http://bff.product.example`. 
 
+## Adapt the Deployment
+
+Once you understand the deployment you can adapt and redeploy in various ways:
+
+- [Run in Development Mode](https://curity.io/resources/learn/token-handler-deployment-example/#spa-developer-setup) to understand the pure SPA developer experience.
+- [Change Domain Names](https://curity.io/resources/learn/token-handler-deployment-example/#change-external-urls) and [Upgrade to HTTPS URLs](https://curity.io/resources/learn/token-handler-deployment-example/#https-setup) to rehearse real deployments.
+
 ## Clean Up
 
 When finished testing, teardown any local Docker-deployed components like this:
