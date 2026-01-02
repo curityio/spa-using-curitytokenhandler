@@ -7,6 +7,7 @@ const config: webpack.Configuration = {
 
   context: path.resolve(dirname, '.'),
   target: ['web'],
+  devtool: 'source-map',
 
   entry: {
     app: ['./src/index.tsx']
