@@ -6,7 +6,7 @@ An example SPA demonstrating the code and deployment to integrate with token han
 
 The example deployment requires the following components:
 
-- Node.js 20+
+- Node.js 22+
 - Docker
 - jq
 - OpenSSL 3
@@ -23,12 +23,6 @@ Use the [Curity developer portal](https://developer.curity.io/releases/token-han
 - [Kong OAuth Proxy 2.0.0+](https://developer.curity.io/releases/token-handler?proxy=kong)
 - [OpenResty OAuth Proxy 2.0.1+](https://developer.curity.io/releases/token-handler?proxy=openresty)
 - [NGINX OAuth Proxy 2.0.0+](https://developer.curity.io/releases/token-handler?proxy=nginx)
-
-Also, ensure that your computer's Curity Docker image is up to date (9.5.0 or later):
-
-```bash
-docker pull curity.azurecr.io/curity/idsvr
-```
 
 ## Deploy the System
 

@@ -32,6 +32,11 @@ if [ $? -ne 0 ]; then
 fi
 
 #
+# Pull the latest image for the Curity Token Handler
+#
+docker pull curity.azurecr.io/curity/idsvr
+
+#
 # Run the deployment for this scenario
 #
 echo 'Deploying the docker compose system ...'

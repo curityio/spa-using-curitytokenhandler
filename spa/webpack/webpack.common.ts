@@ -1,3 +1,4 @@
+import CopyPlugin from 'copy-webpack-plugin';
 import path from 'path';
 import webpack from 'webpack';
 
@@ -39,7 +40,27 @@ const config: webpack.Configuration = {
         },
       }
     }
-  }
+  },
+
+  plugins: [
+
+    new CopyPlugin({
+      patterns: [
+        {
+          from: 'index.html',
+          to: path.resolve('dist'),
+        },
+        {
+          from: 'app.css',
+          to: path.resolve('dist'),
+        },
+        {
+          from: 'config.json',
+          to: path.resolve('dist'),
+        },
+      ]
+    }),
+  ]
 }
 
 export default config;
