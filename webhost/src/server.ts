@@ -20,7 +20,7 @@ app.use((request: express.Request, response: express.Response, next: express.Nex
     policy += ` connect-src 'self' ${configuration.bffBaseUrl};`;
     policy += " child-src 'self';";
     policy += " img-src 'self';";
-    policy += " style-src 'self' https://cdn.jsdelivr.net;";
+    policy += " style-src 'self';";
     policy += ` font-src 'self';`;
     policy += " object-src 'none';";
     policy += " frame-ancestors 'none';";

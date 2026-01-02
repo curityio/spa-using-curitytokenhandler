@@ -9,8 +9,7 @@
         "node": ">=22"
     },
     "scripts": {
-        "start": "npm run serve",
-        "serve": "NODE_OPTIONS='--import tsx' webpack serve --config webpack/webpack.dev.ts",
+        "start": "NODE_OPTIONS='--import tsx' webpack serve --config webpack/webpack.dev.ts",
         "build": "NODE_OPTIONS='--import tsx' webpack --config webpack/webpack.prod.ts"
     },
     "dependencies": {
