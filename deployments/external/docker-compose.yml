@@ -98,7 +98,7 @@ services:
   # Keycloak is used as the external authorization server
   #
   keycloak:
-    image: quay.io/keycloak/keycloak:25.0.1
+    image: quay.io/keycloak/keycloak:26.4.7
     hostname: login-internal
     ports:
     - 8080:8080
@@ -108,8 +108,6 @@ services:
       KC_HTTP_ENABLED: 'true'
       KC_HTTPS_ENABLED: 'false'
       KC_HEALTH_ENABLED: 'true'
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: Password1
       KC_LOG_LEVEL: INFO
       KC_DB: postgres
       KC_DB_URL_HOST: keycloak-dbserver
@@ -129,7 +127,7 @@ services:
   # Keycloak's data includes preshipped user accounts
   #
   keycloakdata:
-    image: postgres:17.4
+    image: postgres:18.1
     hostname: keycloak-dbserver
     environment:
       POSTGRES_USER: postgres
