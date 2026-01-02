@@ -43,7 +43,6 @@ const config: webpack.Configuration = {
       }
     }
   },
-
   plugins: [
 
     new CopyPlugin({
