@@ -11,8 +11,8 @@ const devServer: webpackDevServer.Configuration = {
     /*server: {
         type: 'https',  
         options: {
-            key: fs.readFileSync('./certs/example.ssl.key'),
-            cert: fs.readFileSync('./certs/example.ssl.crt'),
+            key: fs.readFileSync('../certs/example.ssl.key'),
+            cert: fs.readFileSync('../certs/example.ssl.crt'),
         },
     },*/
     static: {
