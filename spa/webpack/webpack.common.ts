@@ -1,14 +1,16 @@
+import CopyPlugin from 'copy-webpack-plugin';
 import path from 'path';
 import webpack from 'webpack';
 
 const dirname = process.cwd();
 const config: webpack.Configuration = {
 
-  context: path.resolve(dirname, './src'),
+  context: path.resolve(dirname, '.'),
   target: ['web'],
+  devtool: 'source-map',
 
   entry: {
-    app: ['./index.tsx']
+    app: ['./src/index.tsx']
   },
   module: {
 
@@ -26,6 +28,7 @@ const config: webpack.Configuration = {
   output: {
     path: path.resolve(dirname, './dist'),
     filename: `[name].bundle.js`,
+    clean: true,
   },
   optimization: {
 
@@ -39,7 +42,26 @@ const config: webpack.Configuration = {
         },
       }
     }
-  }
+  },
+  plugins: [
+
+    new CopyPlugin({
+      patterns: [
+        {
+          from: 'index.html',
+          to: path.resolve('dist'),
+        },
+        {
+          from: 'css',
+          to: path.resolve('dist'),
+        },
+        {
+          from: 'config.json',
+          to: path.resolve('dist'),
+        },
+      ]
+    }),
+  ]
 }
 
 export default config;
