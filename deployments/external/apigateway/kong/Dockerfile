@@ -1,8 +1,7 @@
 FROM kong/kong:3.9-ubuntu
 
 USER root
-RUN apt-get update
-RUN apt-get install -y git unzip wget
+RUN apt-get update && apt-get install -y git unzip wget
 
 #
 # Install luarocks, and set git options if required

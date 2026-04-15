@@ -21,7 +21,7 @@
         "@types/node": "^22.13.14",
         "@types/react": "^19.2.7",
         "@types/react-dom": "^19.2.3",
-        "copy-webpack-plugin": "^13.0.1",
+        "copy-webpack-plugin": "^14.0.0",
         "ts-loader": "^9.5.4",
         "tsx": "^4.21.0",
         "typescript": "^5.9.3",
