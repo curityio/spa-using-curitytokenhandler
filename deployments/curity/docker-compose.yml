@@ -103,7 +103,7 @@ services:
       POSTGRES_PASSWORD: 'Password1'
       POSTGRES_DB: 'idsvr'
 
-#
+  #
   # A job container to initialize the database
   #
   curity-data-init:
