@@ -77,7 +77,7 @@ export OAUTH_PROXY_TYPE='kong'
 
 Wait a few minutes for components to come up and then access components:
 
-- Curity admin UI: `https://localhost:6749` using `admin / Password1`.
+- Curity admin UI: `https://localhost:6749/admin` using `admin / Password1`.
 
 ## Use the System
 

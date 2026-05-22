@@ -1,0 +1,33 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+        http://www.liquibase.org/xml/ns/pro
+        http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd"
+        objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <changeSet id="1" author="curity">
+        <insert tableName="accounts">
+            <column name="account_id" type="varchar">79b6852c-8062-403b-b0a9-3b19d7175233</column>
+            <column name="username">demouser</column>
+            <column name="email">demo@user.com</column>
+            <column name="phone">07711</column>
+            <column name="active" type="smallint">1</column>
+            <column name="attributes" type="text">{"name": {"givenName": "Demo", "familyName": "User"}, "emails": [{"value": "demo@user.com", "primary": true}], "agreeToTerms": "on", "phoneNumbers": [{"value": "07711", "primary": true}], "urn:se:curity:scim:2.0:Devices": []}</column>
+            <column name="created" type="bigint">1708008810</column>
+            <column name="updated" type="bigint">1708008810</column>
+        </insert>
+         <insert tableName="credentials">
+              <column name="id">6a273e20-6015-4243-8117-44379cadf582</column>
+              <column name="subject">demouser</column>
+              <column name="password">$5$rounds=20000$p32Fp4ecezzC0BSk$kaqe1ol1ShkqespXd9QiX.NNRasd0nOOQiC6ES1wOiB</column>
+              <column name="attributes">{}</column>
+              <column name="created">2024-02-15 14:53:30.623009</column>
+              <column name="updated">2024-02-15 14:53:30.623009</column>
+          </insert>
+    </changeSet>
+</databaseChangeLog>
