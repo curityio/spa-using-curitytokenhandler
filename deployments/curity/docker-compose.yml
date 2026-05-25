@@ -97,8 +97,26 @@ services:
     image: postgres:18.1
     hostname: dbserver
     volumes:
-      - ./idsvr/data-backup.sql:/docker-entrypoint-initdb.d/data-backup.sql
+      - ./idsvr/data:/var/lib/postgresql
     environment:
       POSTGRES_USER: 'postgres'
       POSTGRES_PASSWORD: 'Password1'
       POSTGRES_DB: 'idsvr'
+
+  #
+  # A job container to initialize the database
+  #
+  curity-data-init:
+    image: curity.azurecr.io/curity/idsvr:latest
+    hostname: dbserverinitializer
+    volumes:
+      - ./idsvr/dbinit/init.sh:/tmp/init.sh
+      - ./idsvr/dbinit/test-user-accounts.xml:/opt/idsvr/etc/liquibase/test-user-accounts.xml
+    command: ["/tmp/init.sh"]
+    environment:
+      JDBC_URL: jdbc:postgresql://dbserver:5432/idsvr
+      JDBC_USERNAME: 'postgres'
+      JDBC_PASSWORD: 'Password1'
+    depends_on:
+      curity-data:
+        condition: service_started
